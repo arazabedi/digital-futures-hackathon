@@ -4,7 +4,6 @@ import middlewareConfig from "../middleware/index.js";
 import {
   changePasswordController,
   loginController,
-  logoutController,
   registerController,
   validateTokenController,
 } from "../controllers/auth.controller.js";
@@ -60,6 +59,7 @@ router.post(
       }),
     body("email").exists().normalizeEmail().isEmail(),
     body("password").exists().escape(),
+    body("role").optional().isIn(["admin", "customer"]),
     verifyRegistration.checkDuplicateUsernameOrEmail,
   ],
   registerController
@@ -70,7 +70,6 @@ router.post(
   loginController
 );
 router.get(`/auth/verify-token`, verifyToken, validateTokenController);
-router.post(`/auth/logout`, verifyToken, logoutController);
 
 router.post(`/user/password`, verifyToken, changePasswordController);
 

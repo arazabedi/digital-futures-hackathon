@@ -10,9 +10,9 @@ const server = new Server(PORT, HOST, router);
 const database = new Database(DB_URI);
 
 try {
-	database.connect();
+  database.connect();
 } catch (e) {
-	console.log("Failed to connect to database: " + e);
+  console.log("Failed to connect to database: " + e);
 }
 
 server.start();
