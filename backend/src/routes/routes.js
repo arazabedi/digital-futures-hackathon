@@ -43,7 +43,6 @@ router.post(
           typeof value === "object" &&
           Object.keys(value).length === 3 &&
           typeof value.first_name === "string" &&
-          typeof value.middle_name === "string" &&
           typeof value.last_name === "string" &&
           value.first_name.trim() !== "" &&
           value.last_name.trim() !== ""
