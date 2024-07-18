@@ -70,7 +70,7 @@ router.get(`/auth/verify-token`, verifyToken, validateTokenController);
 
 router.get("/llm-models", getAllLlmModelsController);
 router.post("/llm-models", verifyToken, addLlmModelController);
-router.get("/llm-models/:id", getLlmModelByIdController);
+router.get("/llm-models/:id", verifyToken, getLlmModelByIdController);
 router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
 router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
 
