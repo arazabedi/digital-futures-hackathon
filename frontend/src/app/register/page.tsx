@@ -63,7 +63,7 @@ function Register() {
 
   return (
     <main className="flex flex-col items-center mt-12 m-auto w-96 align-middle gap-5">
-      <h1>CalCount</h1>
+      <h1>Lighthouse</h1>
       <AutoForm
         // Do something with the data
         // Data is validated and coerced with zod automatically
