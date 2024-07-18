@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const accessToken = Cookies.get("accessToken");
     try {
       if (accessToken) {
-        await logout(accessToken);
+        // await logout(accessToken);
         Cookies.remove("accessToken");
       }
       setUser(null);
