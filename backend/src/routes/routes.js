@@ -4,22 +4,17 @@ import middlewareConfig from "../middleware/index.js";
 import {
   changePasswordController,
   loginController,
-  logoutController,
   registerController,
   validateTokenController,
 } from "../controllers/auth.controller.js";
 import {
-  logWeightController,
-  getWeightLogController,
-  sendFriendRequestController,
-  getAllUsersController,
-  searchForFriendsController,
-  acceptFriendRequestController,
-  removeFriendController,
-  getFriendRequestsController,
-  getSentFriendRequestsController,
-  getAllFriendWeightLogsController,
-} from "../controllers/user.controller.js";
+  getAllLlmModelsController,
+  addLlmModelController,
+  getLlmModelByIdController,
+  updateLlmModelByIdController,
+  deleteLlmModelByIdController,
+} from "../controllers/llmModel.controller.js";
+
 import authJwt from "../middleware/authJwt.js";
 const { verifyToken } = authJwt;
 const router = express.Router();
@@ -60,51 +55,24 @@ router.post(
       }),
     body("email").exists().normalizeEmail().isEmail(),
     body("password").exists().escape(),
+    body("role").optional().isIn(["admin", "customer"]),
     verifyRegistration.checkDuplicateUsernameOrEmail,
   ],
   registerController
 );
+
 router.post(
   `/auth/login`,
   [body(`username`).exists().escape(), body(`password`).exists().escape()],
   loginController
 );
+
 router.get(`/auth/verify-token`, verifyToken, validateTokenController);
-router.post(`/auth/logout`, verifyToken, logoutController);
 
-router.post(`/user/password`, verifyToken, changePasswordController);
-
-router.get("/user/weight-log", verifyToken, getWeightLogController);
-router.post("/user/weight-log", verifyToken, logWeightController);
-
-router.get(`/users/`, searchForFriendsController);
-router.get(`/users/all`, getAllUsersController);
-
-router.post(
-  "/user/friends/requests/send/",
-  verifyToken,
-  sendFriendRequestController
-);
-router.post(
-  "/user/friends/requests/accept/",
-  verifyToken,
-  acceptFriendRequestController
-);
-router.get(
-  `/user/friends/weight-logs`,
-  verifyToken,
-  getAllFriendWeightLogsController
-);
-router.delete(`/user/friends/remove`, verifyToken, removeFriendController);
-router.get(
-  `/user/friends/requests/received`,
-  verifyToken,
-  getFriendRequestsController
-);
-router.get(
-  `/user/friends/requests/sent`,
-  verifyToken,
-  getSentFriendRequestsController
-);
+router.get("/llm-models", getAllLlmModelsController);
+router.post("/llm-models", verifyToken, addLlmModelController);
+router.get("/llm-models/:id", getLlmModelByIdController);
+router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
+router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
 
 export default router;

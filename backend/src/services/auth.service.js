@@ -11,10 +11,7 @@ export const register = async (userData) => {
       email: userData.email,
       full_name: userData.full_name,
       password: bcrypt.hashSync(userData.password, 8),
-      sent_requests: [],
-      friend_requests: [],
-      friends: [],
-      weight_log: [],
+      role: userData.role || "customer",
     });
     await user.save();
     return { message: "User " + user.username + " registered successfully" };
@@ -33,14 +30,19 @@ export const login = async (username, password) => {
     if (!passwordIsValid) {
       throw new Error("Invalid username/password combination");
     }
-    const token = jwt.sign({ id: user.id }, process.env.SECRET, {
-      expiresIn: 86400,
-    });
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.SECRET,
+      {
+        expiresIn: 86400,
+      }
+    );
     return {
       id: user._id,
       username: user.username,
       full_name: user.full_name,
       email: user.email,
+      role: user.role,
       accessToken: token,
     };
   } catch (error) {
@@ -49,26 +51,26 @@ export const login = async (username, password) => {
 };
 
 export const validateToken = async (userId) => {
-	try {
-		const user = await User.findOne({ _id: userId }).exec();
+  try {
+    const user = await User.findById(userId).exec();
     if (!user) {
       throw new Error("User not found");
-		}
+    }
     return {
       id: user._id,
       username: user.username,
       full_name: user.full_name,
       email: user.email,
+      role: user.role,
     };
   } catch (error) {
-    throw new Error("Error logging in user");
+    throw new Error("Error validating token");
   }
 };
 
 export const changePassword = async (userId, oldPassword, newPassword) => {
   try {
-    console.log(userId);
-    const user = await User.findOne({ _id: userId }).exec();
+    const user = await User.findById(userId).exec();
     if (!user) {
       throw new Error("User not found");
     }

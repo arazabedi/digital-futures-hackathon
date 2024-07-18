@@ -20,6 +20,7 @@ export const registerController = async (req, res) => {
       email: req.body.email,
       full_name: req.body.full_name,
       password: req.body.password,
+      role: req.body.role,
     };
     const response = await register(userData);
     res.status(201).send(response);
@@ -46,8 +47,8 @@ export const loginController = async (req, res) => {
   }
 
   try {
-		const user = await login(req.body.username, req.body.password);
-    res.status(200).send(user)
+    const user = await login(req.body.username, req.body.password);
+    res.status(200).send(user);
   } catch (error) {
     res.status(500).send({ error: "Failed to login: " + error });
   }
