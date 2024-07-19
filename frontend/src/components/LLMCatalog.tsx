@@ -10,18 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getCatalogData } from "@/services/llmService";
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CatalogHeaders } from "@/types/types";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function LLMCatalog() {
   const [data, setData] = useState<CatalogHeaders[]>([]);
 
-  const router = useRouter();
-
   useEffect(() => {
     getData();
-  }, [data]);
+  }, []);
 
   const getData = async () => {
     const formattedData = await getCatalogData();
@@ -42,9 +41,9 @@ export function LLMCatalog() {
       <TableBody>
         {data.map((item, index) => (
           <TableRow key={index}>
-						<a className="m-0 p-0" href={`/catalog/${item.llm}`}>
+            <Link href={`/catalog/${item.llm}?id=${item._id}`}>
               <TableCell className="font-medium">{item.llm}</TableCell>
-            </a>
+            </Link>
             <TableCell>{item.organization}</TableCell>
             <TableCell>{item.description}</TableCell>
             <TableCell className="text-right">{item.modality}</TableCell>

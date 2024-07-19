@@ -42,7 +42,8 @@ export const getCatalogData = async () => {
   try {
     const rawData = await getAllLlmData();
     const formattedData: CatalogHeaders[] = rawData.map((item: any) => {
-      const formattedItem: CatalogHeaders = {
+			const formattedItem: CatalogHeaders = {
+				_id: item._id,
         llm: item.name,
         organization: item.organization,
         description: item.description,

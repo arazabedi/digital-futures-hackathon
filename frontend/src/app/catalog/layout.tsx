@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 
-export default function DashboardLayout({
+export default function CatalogLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;

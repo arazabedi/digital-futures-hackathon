@@ -1,14 +1,13 @@
 "use client";
 
-// import Dashboard from "./dashboard/page";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 function Home() {
-  // const router = useRouter();
+  const router = useRouter();
 
-  // router.push("/catalog");
+  router.push("/catalog");
   return (
     <>
     </>

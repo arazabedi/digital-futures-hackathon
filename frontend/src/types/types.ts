@@ -10,6 +10,7 @@ export type registrationDetails = {
 };
 
 export type CatalogHeaders = {
+	_id: string,
   llm: string;
   organization: string;
   description: string;
