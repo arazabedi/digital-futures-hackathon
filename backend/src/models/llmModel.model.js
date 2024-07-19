@@ -7,7 +7,7 @@ const ModelSchema = new Schema({
   name: { type: String, required: true },
   organization: { type: String, required: true },
   description: { type: String, required: true },
-  created_date: { type: Date, required: true },
+  created_date: { type: Date, default: Date.now },
   url: { type: String, required: true },
   datasheet: { type: String, default: "" },
   modality: { type: String, default: "" },

@@ -43,7 +43,6 @@ router.post(
           typeof value === "object" &&
           Object.keys(value).length === 3 &&
           typeof value.first_name === "string" &&
-          typeof value.middle_name === "string" &&
           typeof value.last_name === "string" &&
           value.first_name.trim() !== "" &&
           value.last_name.trim() !== ""
@@ -71,7 +70,7 @@ router.get(`/auth/verify-token`, verifyToken, validateTokenController);
 
 router.get("/llm-models", getAllLlmModelsController);
 router.post("/llm-models", verifyToken, addLlmModelController);
-router.get("/llm-models/:id", getLlmModelByIdController);
+router.get("/llm-models/:id", verifyToken, getLlmModelByIdController);
 router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
 router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
 
