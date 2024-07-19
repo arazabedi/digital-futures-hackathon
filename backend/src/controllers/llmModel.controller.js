@@ -1,7 +1,7 @@
 import {
   getAllLlmModels,
   addLlmModel,
-  getLlmModelById,
+	getLlmModelById,
   updateLlmModelById,
   deleteLlmModelById,
 } from "../services/llmModel.service.js";

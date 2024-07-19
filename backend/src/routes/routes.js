@@ -73,5 +73,4 @@ router.post("/llm-models", verifyToken, addLlmModelController);
 router.get("/llm-models/:id", verifyToken, getLlmModelByIdController);
 router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
 router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
-
 export default router;

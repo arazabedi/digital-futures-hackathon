@@ -16,7 +16,7 @@ export default function Navbar() {
           </Link>
           <nav className="hidden md:flex gap-4">
             <Link
-              href="#"
+              href="/catalog"
               className="font-medium flex items-center text-sm transition-colors hover:underline"
               prefetch={false}
             >
