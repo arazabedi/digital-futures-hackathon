@@ -86,12 +86,12 @@ router.get("/llm-models/:id", verifyToken, getLlmModelByIdController);
 router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
 router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
 
-router.get("/news-datas", getAllNewsController);
-router.get("/news-datas/related/:name", getRelatedNewsByModelNameController);
-router.post("/news-datas", verifyToken, addNewsController);
-router.get("/news-datas/:id", getNewsByIdController);
-router.put("/news-datas/:id", verifyToken, updateNewsByIdController);
-router.delete("/nenews-datasws/:id", verifyToken, deleteNewsByIdController);
+router.get("/news", getAllNewsController);
+router.get("/news/related/:name", getRelatedNewsByModelNameController);
+router.post("/news", verifyToken, addNewsController);
+router.get("/news/:id", getNewsByIdController);
+router.put("/news/:id", verifyToken, updateNewsByIdController);
+router.delete("/news/:id", verifyToken, deleteNewsByIdController);
 
 router.post("/ratings", verifyToken, addRatingController);
 router.get("/ratings/:modelId", getRatingsByModelIdController);
