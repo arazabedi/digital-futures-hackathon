@@ -14,9 +14,21 @@ import {
   updateLlmModelByIdController,
   deleteLlmModelByIdController,
 } from "../controllers/llmModel.controller.js";
+import {
+  getAllNewsController,
+  addNewsController,
+  getNewsByIdController,
+  updateNewsByIdController,
+  deleteNewsByIdController,
+  getRelatedNewsByModelNameController,
+} from "../controllers/news.controller.js";
+import {
+  addRatingController,
+  getRatingsByModelIdController,
+} from "../controllers/rating.controller.js";
 
 import authJwt from "../middleware/authJwt.js";
-const { verifyToken } = authJwt;
+const { verifyToken, isAdmin } = authJwt;
 const router = express.Router();
 const { verifyRegistration } = middlewareConfig;
 
@@ -74,4 +86,13 @@ router.get("/llm-models/:id", verifyToken, getLlmModelByIdController);
 router.put("/llm-models/:id", verifyToken, updateLlmModelByIdController);
 router.delete("/llm-models/:id", verifyToken, deleteLlmModelByIdController);
 
+router.get("/news-datas", getAllNewsController);
+router.get("/news-datas/related/:name", getRelatedNewsByModelNameController);
+router.post("/news-datas", verifyToken, addNewsController);
+router.get("/news-datas/:id", getNewsByIdController);
+router.put("/news-datas/:id", verifyToken, updateNewsByIdController);
+router.delete("/nenews-datasws/:id", verifyToken, deleteNewsByIdController);
+
+router.post("/ratings", verifyToken, addRatingController);
+router.get("/ratings/:modelId", getRatingsByModelIdController);
 export default router;
