@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       toast({
         title: "Welcome, " + username + "!",
       });
-      router.push("/dashboard");
+      router.push("/catalog");
     } catch (error) {
       console.error("Login error:", error);
       toast({
@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const accessToken = Cookies.get("accessToken");
     try {
       if (accessToken) {
-        await logout(accessToken);
+        // await logout(accessToken);
         Cookies.remove("accessToken");
       }
       setUser(null);

@@ -8,7 +8,7 @@
     "node": ">=21"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon src/index.js",
+    "start": "NODE_ENV=dev nodemon src/index.js",
     "start-win": "cross-env NODE_ENV=dev nodemon src/index.js",
     "test": "vitest",
     "coverage": "vitest --coverage",

@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import Dashboard from "./dashboard/page";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 function Home() {
-	const router = useRouter();
+  const router = useRouter();
 
-	router.push("/dashboard")
+  router.push("/catalog");
   return (
     <>
-      <Dashboard />
     </>
   );
 }
 
-export default withAuth(Home)
+export default withAuth(Home);

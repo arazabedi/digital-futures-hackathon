@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-	"type": "module",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "test": "vitest",
@@ -56,7 +56,7 @@
     "lucide-react": "^0.395.0",
     "next": "14.2.4",
     "npm": "^10.8.1",
-    "react": "^18",
+    "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",

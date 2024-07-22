@@ -29,17 +29,17 @@ export const login = async (username: string, password: string) => {
   }
 };
 
-export const logout = async (accessToken: string) => {
+export const logout = async () => {
   try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
-      {},
-      {
-        headers: {
-          "x-access-token": accessToken,
-        },
-      }
-    );
+    // const response = await axios.post(
+    //   `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+    //   {},
+    //   {
+    //     headers: {
+    //       "x-access-token": accessToken,
+    //     },
+    //   }
+    // );
     Cookies.remove("accessToken");
   } catch (error) {
     throw new Error("Logout failed");

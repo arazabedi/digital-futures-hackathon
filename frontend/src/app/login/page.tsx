@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <main className="flex flex-col items-center justify-center mt-36 m-auto w-[450px] align-middle gap-5 p-5">
-      <h1>CalCount</h1>
+      <h1>Lighthouse</h1>
       <AutoForm
         onSubmit={(data) => {
           handleLogin(data.username, data.password);
