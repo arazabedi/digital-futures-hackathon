@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import withAuth from "@/hoc/withAuth";
 
-export default function Navbar() {
-	const { handleLogout } = useAuth();
+function Navbar() {
+	const { isAdmin, handleLogout } = useAuth();
+	
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90">
       <div className="w-full max-w-7xl mx-auto px-4">
@@ -34,17 +36,20 @@ export default function Navbar() {
               className="font-medium flex items-center text-sm transition-colors hover:underline"
               prefetch={false}
             >
-              Services
-            </Link>
-            <Link
-              href="#"
-              className="font-medium flex items-center text-sm transition-colors hover:underline"
-              prefetch={false}
-            >
               Contact
             </Link>
           </nav>
           <div className="flex items-center gap-4">
+            {isAdmin ? (
+              <Button
+                onClick={() => {
+                  handleLogout();
+                }}
+                size="sm"
+              >
+                Admin
+              </Button>
+            ) : null}
             <Button
               onClick={() => {
                 handleLogout();
@@ -60,7 +65,7 @@ export default function Navbar() {
   );
 }
 
-function MountainIcon(props) {
+function MountainIcon(props: any) {
   return (
     <svg
       {...props}
@@ -79,7 +84,7 @@ function MountainIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: any) {
   return (
     <svg
       {...props}
@@ -98,3 +103,5 @@ function XIcon(props) {
     </svg>
   );
 }
+
+export default withAuth(Navbar);

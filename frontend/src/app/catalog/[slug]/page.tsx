@@ -1,5 +1,6 @@
 "use client";
 
+import withAuth from "@/hoc/withAuth";
 import { getLlmById } from "@/services/llmService";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -36,4 +37,4 @@ const LLMDetails = () => {
   }
 };
 
-export default LLMDetails;
+export default withAuth(LLMDetails);

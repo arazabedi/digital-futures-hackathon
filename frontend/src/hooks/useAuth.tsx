@@ -20,10 +20,12 @@ interface User {
   full_name: { first_name: string; middle_name: string; last_name: string };
   email: string;
   accessToken: string;
+  role: string;
 }
 
 interface AuthContextType {
   user: User | null;
+  isAdmin: boolean;
   handleLogin: (email: string, password: string) => Promise<void>;
   handleRegister: (userData: registrationDetails) => Promise<void>;
   handleLogout: () => void;
@@ -37,6 +39,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
@@ -55,11 +58,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         .then((response) => {
           console.log("Token verified, user data:", response.data);
           setUser(response.data);
+          console.log("hello" + user);
+          setIsAdmin(response.data.role === "admin");
         })
         .catch((error) => {
           console.error("Token verification failed:", error);
           Cookies.remove("accessToken");
+          console.log("Token removed");
           setUser(null);
+          setIsAdmin(false);
         })
         .finally(() => {
           setLoading(false);
@@ -70,7 +77,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, []);
 
-  const handleRegister = async (userData: registrationDetails) => {
+  const handleRegister = async (
+    userData: registrationDetails
+  ): Promise<any> => {
     toast({
       title: "Hello",
       description: "Friday, February 10, 2023 at 5:57 PM",
@@ -101,6 +110,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const loggedInUser = await login(username, password);
       setUser(loggedInUser);
       console.log("User logged in:", loggedInUser);
+      setIsAdmin(loggedInUser.role === "admin");
       toast({
         title: "Welcome, " + username + "!",
       });
@@ -118,10 +128,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const accessToken = Cookies.get("accessToken");
     try {
       if (accessToken) {
-        // await logout(accessToken);
+        await logout();
         Cookies.remove("accessToken");
       }
       setUser(null);
+      setIsAdmin(false);
       console.log("User logged out");
       router.push("/login");
     } catch (error) {
@@ -143,7 +154,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, handleRegister, handleLogin, handleLogout }}
+      value={{ user, isAdmin, handleRegister, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>
