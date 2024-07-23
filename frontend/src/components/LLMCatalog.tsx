@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getCatalogData } from "@/services/llmService";
+import { deleteLLM, getCatalogData } from "@/services/llmService";
 import { useEffect, useState } from "react";
 import { CatalogHeaders } from "@/lib/types/types";
 import Link from "next/link";
@@ -18,11 +18,13 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
 export function LLMCatalog() {
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
   const [data, setData] = useState<CatalogHeaders[]>([]);
   const { isAdmin } = useAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     getData();
@@ -35,6 +37,20 @@ export function LLMCatalog() {
 
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
+  };
+
+  const handleDelete = async (llm: CatalogHeaders) => {
+    try {
+      await deleteLLM(llm._id);
+      console.log(llm);
+      toast({
+        title: "Successfully deleted " + llm.llm + "!",
+      });
+    } catch (error) {
+      toast({
+        title: "Couldn't deleted: " + llm.llm + ".\nError: " + error,
+      });
+    }
   };
 
   return (
@@ -77,7 +93,12 @@ export function LLMCatalog() {
                     <Button variant="outline">
                       <Pencil />
                     </Button>
-                    <Button variant="destructive">Delete</Button>
+                    <Button
+                      onClick={() => handleDelete(item)}
+                      variant="destructive"
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </TableCell>
               ) : null}

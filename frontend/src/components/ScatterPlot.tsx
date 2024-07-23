@@ -27,56 +27,22 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
         data={data}
         margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
         useMesh={true}
-        tooltip={({ node }) => (
-          <div
-            style={{
-              background: "white",
-              padding: "10px",
-              border: "1px solid #ccc",
-              textAlign: "center",
-            }}
-          >
-            <strong>{node.serieId}</strong>
-            <br />
-            Business readiness: {node.data.x}
-            <br />
-            Perceived business value: {node.data.y}
-          </div>
-        )}
-        annotations={[
-          // {
-          //   type: "circle",
-          //   match: {
-          //     index: 10,
-          //   },
-          //   noteX: 10,
-          //   noteY: 10,
-          //   offset: 10,
-          //   note: "Node at index: 100",
-          // },
-          // {
-          //   type: "rect",
-          //   match: {
-          //     index: 50,
-          //   },
-          //   noteX: -40,
-          //   noteY: -40,
-          //   offset: 4,
-          //   note: "Node at index: 50",
-          // },
-          {
-            type: "dot",
-            // match: {
-            //   index: 20,
-            // },
-            noteX: 0,
-            noteY: {
-              abs: -20,
-            },
-            size: 6,
-            note: "Node at index: 20",
-          },
-        ]}
+        // tooltip={({ node }) => (
+        //   <div
+        //     style={{
+        //       background: "white",
+        //       padding: "10px",
+        //       border: "1px solid #ccc",
+        //       textAlign: "center",
+        //     }}
+        //   >
+        //     <strong>{node.serieId}</strong>
+        //     <br />
+        //     Business readiness: {node.data.x}
+        //     <br />
+        //     Perceived business value: {node.data.y}
+        //   </div>
+        // )}
         xScale={{ type: "linear", min: 0, max: 100 }}
         xFormat=" >-.2f"
         yScale={{ type: "linear", min: 0, max: 100 }}
