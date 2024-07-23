@@ -3,14 +3,14 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const ModelSchema = new Schema({
-  type: { type: String, required: true },
+  type: { type: String, default: "" },
   name: { type: String, required: true },
   organization: { type: String, required: true },
   description: { type: String, required: true },
   created_date: { type: Date, default: Date.now },
-  url: { type: String, required: true },
+  url: { type: String, default: "" },
   datasheet: { type: String, default: "" },
-  modality: { type: String, default: "" },
+  modality: { type: String, required: true },
   size: { type: String, default: "" },
   sample: { type: String, default: "" },
   analysis: {
