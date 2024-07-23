@@ -1,4 +1,7 @@
+"use client"
+
 import { LLMCatalog } from "@/components/LLMCatalog";
+import withAuth from "@/hoc/withAuth";
 
 const Catalog = () => {
   return (
@@ -10,4 +13,4 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+export default withAuth(Catalog);
