@@ -10,8 +10,15 @@ export type registrationDetails = {
 };
 
 export type CatalogHeaders = {
-	_id: string,
+  _id: string;
   llm: string;
+  organization: string;
+  description: string;
+  modality: string;
+};
+
+export type LLMBasicData = {
+  name: string;
   organization: string;
   description: string;
   modality: string;
@@ -49,7 +56,7 @@ export type LLMDetailsCardProps = {
 	monthly_active_users: string;
 	user_distribution: string;
 	failures: string;
-}
+};
 
 export type NewsSource = {
   id: string | null;

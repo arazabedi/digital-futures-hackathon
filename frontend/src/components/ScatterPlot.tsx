@@ -49,7 +49,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
     const yDomain = [40, 85];
 
     return (
-        <main className="h-3/6 w-3/6">
+        <main className="h-3/6 w-3/6 bg-white">
             <ResponsiveScatterPlot
                 data={data}
                 margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
@@ -97,12 +97,12 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
                     legendOffset: -60,
                     truncateTickAt: 0,
                 }}
-                nodeSize={40} 
+                nodeSize={40}
                 theme={{
                     axis: {
                         ticks: {
                             text: {
-                                fontSize: '14px', 
+                                fontSize: '14px',
                             },
                         },
                         legend: {
@@ -136,7 +136,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
                     },
                 ]}
                 layers={['grid', 'axes', 'nodes', 'markers', 'mesh', (props) => (
-                    <QuadrantLayer 
+                    <QuadrantLayer
                         xScale={props.xScale}
                         yScale={props.yScale}
                         xDomain={xDomain}
@@ -144,7 +144,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
                         innerWidth={props.innerWidth}
                         innerHeight={props.innerHeight}
                     />
-                )]} 
+                )]}
             />
         </main>
     );
