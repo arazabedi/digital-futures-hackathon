@@ -73,18 +73,21 @@ export const deleteLLM = async (id: string) => {
 export const addLLMBasic = async (data: LLMBasicData) => {
   try {
     const accessToken = Cookies.get("accessToken");
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/llm-models`, {
-      body: {
-        llm: data.llm,
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/llm-models`,
+      {
+        name: data.name,
         organization: data.organization,
         description: data.description,
         modality: data.modality,
       },
-      headers: {
-        "x-access-token": accessToken,
-      },
-    });
+      {
+        headers: {
+          "x-access-token": accessToken,
+        },
+      }
+    );
   } catch (error: any) {
     throw new Error(error);
   }
-};
+}

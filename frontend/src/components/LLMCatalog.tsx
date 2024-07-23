@@ -66,7 +66,7 @@ export function LLMCatalog() {
 
   // 0. Define your form schema
   const formSchema = z.object({
-    llm: z.string().min(2).max(50),
+    name: z.string().min(2).max(50),
     organization: z.string().min(2).max(200),
     description: z.string().min(2).max(2000),
     modality: z.string().min(2).max(50),
@@ -76,7 +76,7 @@ export function LLMCatalog() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      llm: "",
+      name: "",
       organization: "",
       description: "",
       modality: "",
@@ -134,7 +134,7 @@ export function LLMCatalog() {
                   <TableCell>
                     <FormField
                       control={form.control}
-                      name="llm"
+                      name="name"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>

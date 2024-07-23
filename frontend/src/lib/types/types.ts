@@ -18,7 +18,7 @@ export type CatalogHeaders = {
 };
 
 export type LLMBasicData = {
-  llm: string;
+  name: string;
   organization: string;
   description: string;
   modality: string;
