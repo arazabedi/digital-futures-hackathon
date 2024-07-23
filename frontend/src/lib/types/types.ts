@@ -50,3 +50,26 @@ export type LLMDetailsCardProps = {
 	user_distribution: string;
 	failures: string;
 }
+
+export type NewsSource = {
+  id: string | null;
+  name: string;
+};
+
+export type NewsArticle = {
+  source: NewsSource;
+  author: string | null;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string | null;
+  publishedAt: Date;
+  content: string;
+};
+
+export type NewsHeaders = {
+  _id: string;
+  title: string;
+  description: string;
+  publishedAt: Date;
+};
