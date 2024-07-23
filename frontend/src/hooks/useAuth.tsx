@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import { login, logout, register } from "@/services/authService";
-import { registrationDetails } from "@/types/types";
+import { registrationDetails } from "@/lib/types/types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import Loading from "@/app/loading";

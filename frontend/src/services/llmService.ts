@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CatalogHeaders } from "@/types/types";
+import { CatalogHeaders } from "@/lib/types/types";
 import Cookies from "js-cookie";
 
 export const getAllLlmData = async () => {
@@ -42,8 +42,8 @@ export const getCatalogData = async () => {
   try {
     const rawData = await getAllLlmData();
     const formattedData: CatalogHeaders[] = rawData.map((item: any) => {
-			const formattedItem: CatalogHeaders = {
-				_id: item._id,
+      const formattedItem: CatalogHeaders = {
+        _id: item._id,
         llm: item.name,
         organization: item.organization,
         description: item.description,
@@ -52,6 +52,19 @@ export const getCatalogData = async () => {
       return formattedItem;
     });
     return formattedData;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const deleteLLM = async (id: string) => {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/llm-models/${id}`, {
+      headers: {
+        "x-access-token": accessToken,
+      },
+    });
   } catch (error: any) {
     throw new Error(error);
   }
