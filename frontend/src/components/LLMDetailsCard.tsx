@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LLMDetailsCardProps } from "@/types/types";
+import { LLMDetailsCardProps } from "@/lib/types/types";
 
 export default function LLMDetailsCard(props: any) {
 	const data: LLMDetailsCardProps = props.llmData
