@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { addLLMBasic, deleteLLM, getCatalogData } from "@/services/llmService";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { CatalogHeaders } from "@/lib/types/types";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
@@ -34,6 +34,7 @@ import { Input } from "@/components/ui/input";
 export function LLMCatalog() {
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
   const [data, setData] = useState<CatalogHeaders[]>([]);
+  const [filteredData, setFilteredData] = useState<CatalogHeaders[]>([]);
   const { isAdmin } = useAuth();
   const { toast } = useToast();
 
@@ -94,23 +95,45 @@ export function LLMCatalog() {
       });
     } catch (error) {
       toast({
-        title: "Couldn'y add " + values.llm + ". Error: " + error,
+        title: "Couldn't add " + values.llm + ". Error: " + error,
       });
     }
     // console.log(values);
   }
 
+  const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value.toLowerCase();
+    const filteredData = data.filter((llm) => {
+      return (
+        llm.description.toLowerCase().includes(query) ||
+        llm.llm.toLowerCase().includes(query) ||
+        llm.modality.toLowerCase().includes(query) ||
+        llm.organization.toLowerCase().includes(query)
+      );
+    });
+    setFilteredData(filteredData);
+  };
+
   return (
     <>
-      {isAdmin ? (
-        <div className="flex items-center space-x-2 mb-5">
-          <Switch
-            onCheckedChange={(checked) => handleCheckedChange(checked)}
-            id="airplane-mode"
+      <section className="flex flex-row justify-between mb-5">
+        {isAdmin ? (
+          <div className="flex items-center space-x-2 mb-5">
+            <Switch
+              onCheckedChange={(checked) => handleCheckedChange(checked)}
+              id="airplane-mode"
+            />
+            <Label htmlFor="airplane-mode">Edit</Label>
+          </div>
+        ) : null}
+
+        <div className="w-1/6 flex flex-row">
+          <Input
+            onKeyUp={(e) => handleSearchInput(e)}
+            placeholder="Search..."
           />
-          <Label htmlFor="airplane-mode">Edit</Label>
         </div>
-      ) : null}
+      </section>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -204,7 +227,37 @@ export function LLMCatalog() {
                 </TableRow>
               ) : null}
 
-              {data.map((item, index) => (
+              {filteredData.length > 0
+                ? filteredData.map((item, index) => (
+                    <TableRow key={index}>
+                      <Link href={`/catalog/${item.llm}?id=${item._id}`}>
+                        <TableCell className="font-medium">
+                          {item.llm}
+                        </TableCell>
+                      </Link>
+                      <TableCell>{item.organization}</TableCell>
+                      <TableCell>{item.description}</TableCell>
+                      <TableCell className="text-right">
+                        {item.modality}
+                      </TableCell>
+                      {editModeOn ? (
+                        <TableCell className="text-right">
+                          <div className="flex flex-col flex-grow gap-3">
+                            <Button variant="outline">
+                              <Pencil />
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(item)}
+                              variant="destructive"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </TableCell>
+                      ) : null}
+                    </TableRow>
+                  ))
+                : data.map((item, index) => (
                 <TableRow key={index}>
                   <Link href={`/catalog/${item.llm}?id=${item._id}`}>
                     <TableCell className="font-medium">{item.llm}</TableCell>
