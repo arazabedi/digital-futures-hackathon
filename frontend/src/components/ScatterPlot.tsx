@@ -49,7 +49,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
     const yDomain = [40, 85];
 
     return (
-        <main className="h-3/6 w-3/6">
+        <main className="h-3/6 w-3/6 bg-white">
             <ResponsiveScatterPlot
                 data={data}
                 margin={{ top: 60, right: 140, bottom: 70, left: 90 }}

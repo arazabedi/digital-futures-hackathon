@@ -258,30 +258,38 @@ export function LLMCatalog() {
                     </TableRow>
                   ))
                 : data.map((item, index) => (
-                <TableRow key={index}>
-                  <Link href={`/catalog/${item.llm}?id=${item._id}`}>
-                    <TableCell className="font-medium">{item.llm}</TableCell>
-                  </Link>
-                  <TableCell>{item.organization}</TableCell>
-                  <TableCell>{item.description}</TableCell>
-                  <TableCell className="text-right">{item.modality}</TableCell>
-                  {editModeOn ? (
-                    <TableCell className="text-right">
-                      <div className="flex flex-col flex-grow gap-3">
-                        <Button variant="outline">
-                          <Pencil />
-                        </Button>
-                        <Button
-                          onClick={() => handleDelete(item)}
-                          variant="destructive"
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        <Link
+                          className="flex"
+                          href={`/catalog/${item.llm}?id=${item._id}`}
                         >
-                          Delete
-                        </Button>
-                      </div>
-                    </TableCell>
-                  ) : null}
-                </TableRow>
-              ))}
+                          {item.llm}
+                        </Link>
+                      </TableCell>
+
+                      <TableCell>{item.organization}</TableCell>
+                      <TableCell>{item.description}</TableCell>
+                      <TableCell className="text-right">
+                        {item.modality}
+                      </TableCell>
+                      {editModeOn ? (
+                        <TableCell className="text-right">
+                          <div className="flex flex-col flex-grow gap-3">
+                            <Button variant="outline">
+                              <Pencil />
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(item)}
+                              variant="destructive"
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </TableCell>
+                      ) : null}
+                    </TableRow>
+                  ))}
             </TableBody>
           </Table>
         </form>
