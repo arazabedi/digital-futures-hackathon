@@ -27,6 +27,13 @@ import {
   getRatingsByModelIdController,
 } from "../controllers/rating.controller.js";
 
+import {
+  addMatrixEntryController,
+  getMatrixEntriesByModelIdController,
+  updateMatrixEntryController,
+  deleteMatrixEntryController,
+} from "../controllers/matrix.controller.js";
+
 import authJwt from "../middleware/authJwt.js";
 const { verifyToken, isAdmin } = authJwt;
 const router = express.Router();
@@ -95,4 +102,9 @@ router.delete("/news/:id", verifyToken, deleteNewsByIdController);
 
 router.post("/ratings", verifyToken, addRatingController);
 router.get("/ratings/:modelId", getRatingsByModelIdController);
+
+router.post("/matrix", addMatrixEntryController);
+router.get("/matrix/:modelId", getMatrixEntriesByModelIdController);
+router.put("/matrix/:id", updateMatrixEntryController);
+router.delete("/matrix/:id", deleteMatrixEntryController);
 export default router;
