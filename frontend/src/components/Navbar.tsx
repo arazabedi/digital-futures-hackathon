@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -12,26 +13,56 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TowerControl } from "lucide-react";
 
 function Navbar() {
   const { handleLogout } = useAuth();
   const { setTheme } = useTheme();
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY) {
+          setShowNavbar(false);
+        } else {
+          setShowNavbar(true);
+        }
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-gray-950/90">
+    <nav className={`fixed inset-x-0 top-0 z-50 bg-white shadow-sm dark:bg-slate-900 transition-transform duration-300 ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="w-full max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-14 items-center">
           <Link href="#" className="flex items-center" prefetch={false}>
-            <MountainIcon className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+						<TowerControl className="h-6 w-6" />
+            <span className="sr-only">Lighthouse</span>
           </Link>
           <nav className="hidden md:flex gap-4">
+            <Link
+              href="/"
+              className="font-medium flex items-center text-sm transition-colors hover:underline"
+              prefetch={false}
+            >
+              Home
+            </Link>
             <Link
               href="/catalog"
               className="font-medium flex items-center text-sm transition-colors hover:underline"
               prefetch={false}
             >
-              Home
+              Catalog
             </Link>
             <Link
               href="/matrix"
