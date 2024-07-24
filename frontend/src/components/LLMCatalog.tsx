@@ -30,10 +30,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CatalogSkeleton from "./skeletons/CatalogSkeleton";
 
 export function LLMCatalog() {
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
   const [data, setData] = useState<CatalogHeaders[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<CatalogHeaders[]>([]);
   const { isAdmin } = useAuth();
   const { toast } = useToast();
@@ -43,8 +45,10 @@ export function LLMCatalog() {
   }, []);
 
   const getData = async () => {
+    setLoading(true);
     const formattedData = await getCatalogData();
     setData(formattedData);
+    setLoading(false);
   };
 
   const handleCheckedChange = (checked: boolean) => {
@@ -225,6 +229,32 @@ export function LLMCatalog() {
                     </Button>
                   </TableCell>
                 </TableRow>
+              ) : null}
+
+              {loading ? (
+                <>
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      {editModeOn ? (
+                        <TableCell>
+                          <CatalogSkeleton />
+                        </TableCell>
+                      ) : null}
+                    </TableRow>
+                  ))}
+                </>
               ) : null}
 
               {filteredData.length > 0

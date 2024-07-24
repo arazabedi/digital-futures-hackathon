@@ -15,6 +15,7 @@ import LLMEdit from "./LLMEdit";
 import ArticleDetailsCard from "@/components/ArticleDetailsCard";
 import { LLMDetailsCardProps, NewsArticle } from "@/lib/types/types";
 
+
 interface Props {
   llmData: LLMDetailsCardProps;
   relatedArticles: NewsArticle[];
@@ -55,6 +56,20 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
     failures,
   } = llmData;
 
+	const [rating, setRating] = useState(3);
+	const [isReadOnly, setIsReadOnly] = useState(false);
+
+	async function handleAsyncSubmission(selectedValue) {
+    try {
+      setIsReadOnly(true);
+      setRating(selectedValue);
+      await new Promise((resolve) => setTimeout(() => resolve("Successfully submitted!"), 2000));
+    } catch (err) {
+      setIsReadOnly(false);
+      setRating(0);
+    }
+	}
+
   const { isAdmin } = useAuth();
 
   const formattedDate = new Date(created_date).toLocaleDateString("en-GB");
@@ -79,6 +94,13 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
           <Label htmlFor="airplane-mode">Edit</Label>
         </div>
       ) : null}
+
+			<Rating
+      style={{ maxWidth: 180 }}
+      readOnly={isReadOnly}
+      value={rating}
+      onChange={handleAsyncSubmission}
+			/>
 
       {isAdmin && editModeOn ? (
         <LLMEdit llmData={llmData} />

@@ -64,6 +64,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",
+    "react-rating": "^2.0.5",
     "react-spring": "^9.7.3",
     "react-use-measure": "^2.1.1",
     "styled-components": "^6.1.11",
