@@ -114,7 +114,6 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
       >
         <ResponsiveScatterPlot
           data={data}
-          theme={nivoDark}
           onClick={(e) => handleClick(e)}
           margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
           useMesh={false}
@@ -163,6 +162,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
             tickValues: [],
           }}
           nodeSize={40}
+          // eslint-disable-next-line react/jsx-no-duplicate-props
           theme={{
             axis: {
               ticks: {

@@ -11,8 +11,8 @@ const Matrix = () => {
 
   return (
     <main className="ml-44 mr-44 mt-24">
-      <section className="h-screen flex flex-col items-center">
-        <ScatterPlot data={matrixData} />
+      <section className="h-screen flex flex-col items-center mb-[750px] gap-6">
+          <ScatterPlot data={matrixData} />
         <BusinessValueInfo />
       </section>
     </main>
