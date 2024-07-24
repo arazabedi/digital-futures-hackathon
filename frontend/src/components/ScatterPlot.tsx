@@ -59,16 +59,16 @@ const QuadrantLayer = ({
       />
 
       {/* Quadrant Labels */}
-      <text x={middleX + 140} y={middleY - 255} style={{ fontSize: 15 }}>
+      <text x={middleX + 140} y={middleY - 240} style={{ fontSize: 15, fontWeight: 'bold', fill: '#333' }}>
         Proven Excellence
       </text>
-      <text x={middleX - 290} y={middleY - 255} style={{ fontSize: 15 }}>
+      <text x={middleX - 290} y={middleY - 240} style={{ fontSize: 15, fontWeight: 'bold', fill: '#333' }}>
         Emerging Prospects
       </text>
-      <text x={middleX - 290} y={middleY + 260} style={{ fontSize: 15 }}>
+      <text x={middleX - 290} y={middleY + 240} style={{ fontSize: 15, fontWeight: 'bold', fill: '#333' }}>
         Foundational Merit
       </text>
-      <text x={middleX + 140} y={middleY + 260} style={{ fontSize: 15 }}>
+      <text x={middleX + 140} y={middleY + 240} style={{ fontSize: 15, fontWeight: 'bold', fill: '#333' }}>
         Operationally Effective
       </text>
     </g>
@@ -113,9 +113,6 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           >
              <strong>{node.serieId}</strong>
              <br />
-             Business readiness: {node.data.x}
-             <br />
-             Perceived business value: {node.data.y}
            </div>
          )}
         
@@ -131,7 +128,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           tickSize: 10,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Business Readiness",
+          legend: "Business Readiness →",
           legendPosition: "middle",
           legendOffset: 46,
           truncateTickAt: 0,
@@ -142,7 +139,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           tickSize: 10,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Perceived Business Value",
+          legend: "Perceived Business Value →",
           legendPosition: "middle",
           legendOffset: -60,
           truncateTickAt: 0,
@@ -153,12 +150,12 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           axis: {
             ticks: {
               text: {
-                fontSize: "14px",
+                fontSize: "18px",
               },
             },
             legend: {
               text: {
-                fontSize: "16px",
+                fontSize: "20px",
               },
             },
           },
@@ -187,7 +184,6 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           },
         ]}
         layers={[
-          "grid",
           "axes",
           "nodes",
           "markers",
