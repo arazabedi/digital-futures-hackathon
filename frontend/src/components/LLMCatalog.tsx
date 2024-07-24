@@ -119,7 +119,7 @@ export function LLMCatalog() {
   };
 
   return (
-    <>
+    <main className="mb-8">
       <section className="flex flex-row justify-between mb-5">
         {isAdmin ? (
           <div className="flex items-center space-x-2 mb-5">
@@ -338,6 +338,6 @@ export function LLMCatalog() {
           </Table>
         </form>
       </Form>
-    </>
+    </main>
   );
 }

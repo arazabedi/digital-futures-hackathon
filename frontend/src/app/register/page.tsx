@@ -3,6 +3,7 @@ import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import * as z from "zod";
+import Link from "next/link";
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -62,7 +63,7 @@ function Register() {
   const { handleRegister } = useAuth();
 
   return (
-    <main className="flex flex-col items-center mt-12 m-auto w-96 align-middle gap-5">
+    <main className="flex flex-col items-center mt-12 m-auto w-96 align-middle gap-5 mb-8">
       <h1>Lighthouse</h1>
       <AutoForm
         // Do something with the data
@@ -138,9 +139,13 @@ function Register() {
           .
         </p>
       </AutoForm>
-      <p className="text-gray-800 text-sm">
-        <a href="/login">Already have an account? Log in</a>
-      </p>
+
+      <Link
+        className="light:text-gray-800 dark:text-gray-950 text-sm"
+        href="/login"
+      >
+        Already have an account? Log in
+      </Link>
     </main>
   );
 }
