@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import LLMEdit from "./LLMEdit";
 import ArticleDetailsCard from "@/components/ArticleDetailsCard";
 import { LLMDetailsCardProps, NewsArticle } from "@/lib/types/types";
 import { Rating } from "@smastrom/react-rating";
-import { addRating } from "@/services/ratingService";
+import { addRating, getRatingByModelId } from "@/services/ratingService";
 import {
   deleteArticleById,
   getRelatedNewsByModelName,
@@ -67,6 +67,7 @@ const LLMDetailsCard = ({
   } = llmData;
 
   const [rating, setRating] = useState(3);
+  const [loadingRating, setLoadingRating] = useState<boolean>(false);
   const [isReadOnly, setIsReadOnly] = useState(false);
   const { user, isAdmin } = useAuth();
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
@@ -78,6 +79,26 @@ const LLMDetailsCard = ({
 
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
+  };
+
+  useEffect(() => {
+    getModelRating();
+  }, []);
+
+  const getModelRating = async () => {
+    try {
+      setLoadingRating(true);
+      const response = await getRatingByModelId(modelId);
+      const modelRating = response.data[0].rating;
+      setRating(modelRating);
+      setLoadingRating(false);
+    } catch (error) {
+      setLoadingRating(false);
+      toast({
+        variant: "destructive",
+        title: "Couldn't get rating",
+      });
+    }
   };
 
   const { toast } = useToast();
@@ -138,13 +159,25 @@ const LLMDetailsCard = ({
       )}
 
       {isAdmin && editModeOn ? (
-				<LLMEdit llmData={llmData} modelId={modelId} />
+        <LLMEdit llmData={llmData} modelId={modelId} />
       ) : (
         <section className="p-6 bg-gray-50">
           <Card className="max-w-5xl mx-auto shadow-lg border rounded-lg p-6 bg-white">
             <CardHeader className="flex flex-col items-center text-center gap-3">
               <CardTitle className="text-2xl font-semibold">{name}</CardTitle>
-              {isAdmin ? (
+              {loadingRating ? (
+                <Rating
+                  style={{ maxWidth: 180 }}
+                  readOnly={true}
+                  value={0}
+                  itemStyles={{
+                    activeFillColor: "#D3D3D3",
+                    inactiveFillColor: "#D3D3D3",
+                    // activeFillColor: "#22C55E",
+                    // inactiveFillColor: "#BBF7D0",
+                  }}
+                />
+              ) : isAdmin ? (
                 <Rating
                   style={{ maxWidth: 180 }}
                   readOnly={isReadOnly}
@@ -158,6 +191,7 @@ const LLMDetailsCard = ({
                   value={rating}
                 />
               )}
+
               <CardDescription className="text-gray-600">
                 {description}
               </CardDescription>
