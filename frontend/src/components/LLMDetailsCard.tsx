@@ -94,10 +94,6 @@ const LLMDetailsCard = ({
       setLoadingRating(false);
     } catch (error) {
       setLoadingRating(false);
-      toast({
-        variant: "destructive",
-        title: "Couldn't get rating",
-      });
     }
   };
 
