@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarIcon, FileTextIcon, InputIcon } from "@radix-ui/react-icons";
-import { FileBox } from "lucide-react";
+import { FileBox, ScatterChart } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -15,6 +15,8 @@ import { ny } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import Marquee from "@/components/ui/marquee";
 import { LLMCatalog } from "./LLMCatalog";
+import ScatterPlot from "./ScatterPlot";
+import { matrixData } from "../../data/matrixData";
 
 const files = [
   {
@@ -192,19 +194,17 @@ const features = [
     ),
   },
   {
-    Icon: CalendarIcon,
-    name: "Calendar",
-    description: "Use the calendar to filter your files by date.",
+    Icon: ScatterChart,
+    name: "Matrix",
+    description: "At a glance view of strengths of LLM models.",
     className: "col-span-3 lg:col-span-1",
     href: "/docs",
     cta: "Learn more",
-    // background: (
-    //   <Calendar
-    //     mode="single"
-    //     selected={new Date(2022, 4, 11, 0, 0, 0)}
-    //     className="absolute right-0 top-10 origin-top rounded-md border transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] group-hover:scale-105"
-    //   />
-    // ),
+    background: (
+      <div className="absolute -right-80 scale-[0.7] h-[500px] w-[800px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-50">
+        <ScatterPlot data={matrixData} />
+      </div>
+    ),
   },
 ];
 

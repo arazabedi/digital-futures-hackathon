@@ -4,6 +4,7 @@ import { ResponsiveScatterPlot } from "@nivo/scatterplot";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { nivoDark, nivoLight } from "@/lib/nivoTheme";
 
 type DataPoint = {
   x: number;
@@ -89,125 +90,124 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
 
   const [cursorPointer, setCursorPointer] = useState<boolean>(false);
 
-	return (
+  return (
     <main className={clsx("bg-white", cursorPointer && "cursor-pointer")}>
       <div
         style={{ width: "1000px", height: "600px", maxWidth: "100%" }}
         className="mx-auto flex items-center space-x-2 mb-5"
       >
-      <ResponsiveScatterPlot
-        data={data}
-        onClick={(e) => handleClick(e)}
-        margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
-        useMesh={false}
-        onMouseEnter={() => setCursorPointer(true)}
-        onMouseLeave={() => setCursorPointer(false)}
-        tooltip={({ node }) => (
-          <div
-            style={{
-              background: "white",
-              padding: "10px",
-              border: "1px solid #ccc",
-              textAlign: "center",
-            }}
-          >
-             <strong>{node.serieId}</strong>
-             <br />
-             Business readiness: {node.data.x}
-             <br />
-             Perceived business value: {node.data.y}
-           </div>
-         )}
-        
-        xScale={{ type: "linear", min: 40, max: 85 }}
-        xFormat=" >-.2f"
-        yScale={{ type: "linear", min: 55, max: 95 }}
-        yFormat=">-.2f"
-        blendMode="multiply"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: "bottom",
-          tickSize: 10,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "Business Readiness",
-          legendPosition: "middle",
-          legendOffset: 46,
-          truncateTickAt: 0,
-          tickValues: [],
-        }}
-        axisLeft={{
-          orient: "left",
-          tickSize: 10,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "Perceived Business Value",
-          legendPosition: "middle",
-          legendOffset: -60,
-          truncateTickAt: 0,
-          tickValues: [],
-        }}
-        nodeSize={40}
-        theme={{
-          axis: {
-            ticks: {
-              text: {
-                fontSize: "14px",
-              },
-            },
-            legend: {
-              text: {
-                fontSize: "16px",
-              },
-            },
-          },
-        }}
-        legends={[
-          {
-            anchor: "bottom-right",
-            direction: "column",
-            justify: false,
-            translateX: 130,
-            translateY: 0,
-            itemWidth: 100,
-            itemHeight: 12,
-            itemsSpacing: 5,
-            itemDirection: "left-to-right",
-            symbolSize: 12,
-            symbolShape: "circle",
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemOpacity: 1,
+        <ResponsiveScatterPlot
+					data={data}
+					theme={nivoDark}
+          onClick={(e) => handleClick(e)}
+          margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
+          useMesh={false}
+          onMouseEnter={() => setCursorPointer(true)}
+          onMouseLeave={() => setCursorPointer(false)}
+          tooltip={({ node }) => (
+            <div
+              style={{
+                background: "white",
+                padding: "10px",
+                border: "1px solid #ccc",
+                textAlign: "center",
+              }}
+            >
+              <strong>{node.serieId}</strong>
+              <br />
+              Business readiness: {node.data.x}
+              <br />
+              Perceived business value: {node.data.y}
+            </div>
+          )}
+          xScale={{ type: "linear", min: 40, max: 85 }}
+          xFormat=" >-.2f"
+          yScale={{ type: "linear", min: 55, max: 95 }}
+          yFormat=">-.2f"
+          blendMode="multiply"
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            orient: "bottom",
+            tickSize: 10,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: "Business Readiness",
+            legendPosition: "middle",
+            legendOffset: 46,
+            truncateTickAt: 0,
+            tickValues: [],
+          }}
+          axisLeft={{
+            orient: "left",
+            tickSize: 10,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: "Perceived Business Value",
+            legendPosition: "middle",
+            legendOffset: -60,
+            truncateTickAt: 0,
+            tickValues: [],
+          }}
+          nodeSize={40}
+          theme={{
+            axis: {
+              ticks: {
+                text: {
+                  fontSize: "14px",
                 },
               },
-            ],
-          },
-        ]}
-        layers={[
-          "grid",
-          "axes",
-          "nodes",
-          "markers",
-          "mesh",
-          (props) => (
-            <QuadrantLayer
-              xScale={props.xScale}
-              yScale={props.yScale}
-              xDomain={xDomain}
-              yDomain={yDomain}
-              innerWidth={props.innerWidth}
-              innerHeight={props.innerHeight}
-            />
-          ),
-          "legends",
-        ]}
+              legend: {
+                text: {
+                  fontSize: "16px",
+                },
+              },
+            },
+          }}
+          legends={[
+            {
+              anchor: "bottom-right",
+              direction: "column",
+              justify: false,
+              translateX: 130,
+              translateY: 0,
+              itemWidth: 100,
+              itemHeight: 12,
+              itemsSpacing: 5,
+              itemDirection: "left-to-right",
+              symbolSize: 12,
+              symbolShape: "circle",
+              effects: [
+                {
+                  on: "hover",
+                  style: {
+                    itemOpacity: 1,
+                  },
+                },
+              ],
+            },
+          ]}
+          layers={[
+            "grid",
+            "axes",
+            "nodes",
+            "markers",
+            "mesh",
+            (props) => (
+              <QuadrantLayer
+                xScale={props.xScale}
+                yScale={props.yScale}
+                xDomain={xDomain}
+                yDomain={yDomain}
+                innerWidth={props.innerWidth}
+                innerHeight={props.innerHeight}
+              />
+            ),
+            "legends",
+          ]}
         />
       </div>
     </main>
-    
   );
 };
 
