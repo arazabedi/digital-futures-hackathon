@@ -24,7 +24,7 @@ import {
 } from "../controllers/news.controller.js";
 import {
   addRatingController,
-  getRatingsByModelIdController,
+  getRatingByModelIdController,
 } from "../controllers/rating.controller.js";
 
 import {
@@ -100,8 +100,8 @@ router.get("/news/:id", getNewsByIdController);
 router.put("/news/:id", verifyToken, updateNewsByIdController);
 router.delete("/news/:id", verifyToken, deleteNewsByIdController);
 
-router.post("/ratings", verifyToken, addRatingController);
-router.get("/ratings/:modelId", getRatingsByModelIdController);
+router.post("/rating", verifyToken, addRatingController);
+router.get("/rating/:modelId", getRatingByModelIdController);
 
 router.post("/matrix", addMatrixEntryController);
 router.get("/matrix/:modelId", getMatrixEntriesByModelIdController);
