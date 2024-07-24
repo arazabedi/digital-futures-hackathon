@@ -30,10 +30,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CatalogSkeleton from "./skeletons/CatalogSkeleton";
 
 export function LLMCatalog() {
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
   const [data, setData] = useState<CatalogHeaders[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<CatalogHeaders[]>([]);
   const { isAdmin } = useAuth();
   const { toast } = useToast();
@@ -43,8 +45,10 @@ export function LLMCatalog() {
   }, []);
 
   const getData = async () => {
+    setLoading(true);
     const formattedData = await getCatalogData();
     setData(formattedData);
+    setLoading(false);
   };
 
   const handleCheckedChange = (checked: boolean) => {
@@ -227,6 +231,32 @@ export function LLMCatalog() {
                 </TableRow>
               ) : null}
 
+              {loading ? (
+                <>
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      <TableCell>
+                        <CatalogSkeleton />
+                      </TableCell>
+                      {editModeOn ? (
+                        <TableCell>
+                          <CatalogSkeleton />
+                        </TableCell>
+                      ) : null}
+                    </TableRow>
+                  ))}
+                </>
+              ) : null}
+
               {filteredData.length > 0
                 ? filteredData.map((item, index) => (
                     <TableRow key={index}>
@@ -243,8 +273,15 @@ export function LLMCatalog() {
                       {editModeOn ? (
                         <TableCell className="text-right">
                           <div className="flex flex-col flex-grow gap-3">
-                            <Button variant="outline">
-                              <Pencil />
+                            <Button
+                              onClick={(e) => e.preventDefault()}
+                              variant="outline"
+                            >
+                              <Link
+                                href={`/catalog/${item.llm}?id=${item._id}/edit`}
+                              >
+                                <Pencil />
+                              </Link>
                             </Button>
                             <Button
                               onClick={() => handleDelete(item)}
@@ -276,8 +313,15 @@ export function LLMCatalog() {
                       {editModeOn ? (
                         <TableCell className="text-right">
                           <div className="flex flex-col flex-grow gap-3">
-                            <Button variant="outline">
-                              <Pencil />
+                            <Button
+                              onClick={(e) => e.preventDefault()}
+                              variant="outline"
+                            >
+                              <Link
+                                href={`/catalog/${item.llm}?id=${item._id}/edit`}
+                              >
+                                <Pencil />
+                              </Link>
                             </Button>
                             <Button
                               onClick={() => handleDelete(item)}

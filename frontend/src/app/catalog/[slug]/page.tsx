@@ -22,11 +22,11 @@ const LLMDetails = () => {
 
   const fetchData = async (id: string) => {
     try {
-      
+
       const llmDetails = await getLlmById(id);
       setLlmData(llmDetails);
 
-      const articles = await getRelatedNewsByModelName(llmDetails.name); 
+      const articles = await getRelatedNewsByModelName(llmDetails.name);
       setRelatedArticles(articles);
     } catch (error) {
       console.error('Error fetching data:', error);

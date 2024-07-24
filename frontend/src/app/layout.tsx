@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/providers/theme-provider";
+import '@smastrom/react-rating/style.css'
 
 const inter = Inter({ subsets: ["latin"] });
 

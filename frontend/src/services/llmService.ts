@@ -38,6 +38,25 @@ export const getLlmById = async (id: string) => {
   }
 };
 
+//Might get rid
+// export const getLlmIdByname = async (name: string) => {
+// 	try {
+// 		const accessToken = Cookies.get("accessToken");
+// 		const response = await axios.get(
+// 			`${process.env.NEXT_PUBLIC_API_URL}/llm-models/${id}`,
+// 			{
+// 				headers: {
+// 					"x-access-token": accessToken,
+// 				},
+// 			}
+// 		);
+// 		const rawData = response.data;
+// 		return rawData;
+// 	} catch (error: any) {
+// 		throw new Error(error);
+// 	}
+// };
+
 export const getCatalogData = async () => {
   try {
     const rawData = await getAllLlmData();
