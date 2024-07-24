@@ -1,5 +1,5 @@
 "use client";
-import { LLMDetailsCardProps } from "@/lib/types/types";
+import { LLMUpdateProps } from "@/lib/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +23,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { updateModel } from "@/services/llmService";
+import { useToast } from "./ui/use-toast";
 
 // Define the schema using zod
 const formSchema = z.object({
@@ -30,7 +32,6 @@ const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required." }),
   organization: z.string().min(1, { message: "Organization is required." }),
   description: z.string().min(1, { message: "Description is required." }),
-  created_date: z.date().default(new Date()),
   url: z.string().optional(),
   datasheet: z.string().optional(),
   modality: z.string().min(1, { message: "Modality is required." }),
@@ -59,15 +60,18 @@ const formSchema = z.object({
   failures: z.string().optional(),
 });
 
-function LLMEdit({ llmData }: { llmData: LLMDetailsCardProps }) {
+function LLMEdit({
+  llmData,
+  modelId,
+}: {
+  llmData: LLMUpdateProps;
+  modelId: string;
+}) {
   const defaultValues = {
     type: llmData.type,
     name: llmData.name,
     organization: llmData.organization,
     description: llmData.description,
-    created_date: llmData.created_date,
-    // May need later
-    // created_date: new Date(llmData.created_date).toLocaleDateString("en-GB"),
     url: llmData.url,
     datasheet: llmData.datasheet,
     modality: llmData.modality,
@@ -101,8 +105,20 @@ function LLMEdit({ llmData }: { llmData: LLMDetailsCardProps }) {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { toast } = useToast();
+
+  const onSubmit = (data: LLMUpdateProps) => {
+    try {
+      updateModel(data, modelId);
+      toast({
+        title: "Edit successful",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Edit unsuccessful",
+      });
+    }
   };
 
   function capitalizeFieldName(name: string) {

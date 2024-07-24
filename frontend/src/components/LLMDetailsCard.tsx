@@ -138,7 +138,7 @@ const LLMDetailsCard = ({
       )}
 
       {isAdmin && editModeOn ? (
-        <LLMEdit llmData={llmData} />
+				<LLMEdit llmData={llmData} modelId={modelId} />
       ) : (
         <section className="p-6 bg-gray-50">
           <Card className="max-w-5xl mx-auto shadow-lg border rounded-lg p-6 bg-white">

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { LLMBasicData, CatalogHeaders } from "@/lib/types/types";
+import {
+  LLMBasicData,
+  CatalogHeaders,
+	LLMUpdateProps,
+} from "@/lib/types/types";
 import Cookies from "js-cookie";
 
 export const getAllLlmData = async () => {
@@ -38,7 +42,7 @@ export const getLlmById = async (id: string) => {
   }
 };
 
-//Might get rid
+// Might get rid
 // export const getLlmIdByname = async (name: string) => {
 // 	try {
 // 		const accessToken = Cookies.get("accessToken");
@@ -109,4 +113,21 @@ export const addLLMBasic = async (data: LLMBasicData) => {
   } catch (error: any) {
     throw new Error(error);
   }
-}
+};
+
+export const updateModel = async (data: LLMUpdateProps, modelId: string) => {
+  try {
+    const accessToken = Cookies.get("accessToken");
+    await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/llm-models/${modelId}`,
+      data,
+      {
+        headers: {
+          "x-access-token": accessToken,
+        },
+      }
+    );
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
