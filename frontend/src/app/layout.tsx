@@ -4,9 +4,14 @@ import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/providers/theme-provider";
-import '@smastrom/react-rating/style.css'
+import "@smastrom/react-rating/style.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Manrope } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+
+const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +25,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      {/* <body className={inter.className}> */}
+      <body className={manrope.className}>
         <script
           type="module"
           defer
@@ -28,7 +34,9 @@ export default function RootLayout({
         ></script>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system">
+            <Navbar />
             {children}
+            <Footer />
           </ThemeProvider>
         </AuthProvider>
         <Toaster />

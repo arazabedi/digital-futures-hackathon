@@ -91,7 +91,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
 
   return (
     <div className="w-full">
-      <Form {...form}>
+			<Form {...form}>
         <form
           onSubmit={(e) => {
             form.handleSubmit(onSubmit)(e);

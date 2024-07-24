@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       toast({
         title: "Welcome, " + username + "!",
       });
-      router.push("/catalog");
+      router.push("/");
     } catch (error) {
       console.error("Login error:", error);
       toast({
