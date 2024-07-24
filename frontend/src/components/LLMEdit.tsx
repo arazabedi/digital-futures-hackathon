@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/card";
 import { updateModel } from "@/services/llmService";
 import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 // Define the schema using zod
 const formSchema = z.object({
@@ -105,7 +106,8 @@ function LLMEdit({
     defaultValues: defaultValues,
   });
 
-  const { toast } = useToast();
+	const { toast } = useToast();
+  const router = useRouter();
 
   const onSubmit = (data: LLMUpdateProps) => {
     try {
@@ -113,6 +115,7 @@ function LLMEdit({
       toast({
         title: "Edit successful",
       });
+      router.refresh();
     } catch (error) {
       toast({
         variant: "destructive",
