@@ -3,6 +3,7 @@
 import AutoForm, { AutoFormSubmit } from "@/components/ui/auto-form";
 import * as z from "zod";
 import { useAuth } from "@/hooks/useAuth";
+import Link from "next/link";
 
 // Define your form schema using zod
 const formSchema = z.object({
@@ -36,7 +37,7 @@ const Login = () => {
   const { handleLogin } = useAuth();
 
   return (
-    <main className="flex flex-col items-center justify-center mt-36 m-auto w-[450px] align-middle gap-5 p-5">
+    <main className="flex flex-col mb-48 items-center justify-center mt-36 m-auto w-[450px] align-middle gap-5 p-5">
       <h1>Lighthouse</h1>
       <AutoForm
         onSubmit={(data) => {
@@ -94,8 +95,8 @@ const Login = () => {
           .
         </p>
       </AutoForm>
-      <p className="text-gray-800 text-sm">
-        <a href="/register">Sign up</a>
+      <p className="text-primary text-sm">
+        <Link href="/register"> Register</Link>
       </p>
     </main>
   );
