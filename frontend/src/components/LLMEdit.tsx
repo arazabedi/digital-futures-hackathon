@@ -59,16 +59,15 @@ const formSchema = z.object({
   failures: z.string().optional(),
 });
 
-
 function LLMEdit({ llmData }: { llmData: LLMDetailsCardProps }) {
   const defaultValues = {
     type: llmData.type,
     name: llmData.name,
     organization: llmData.organization,
     description: llmData.description,
-		created_date: llmData.created_date,
-		// May need later
-		// created_date: new Date(llmData.created_date).toLocaleDateString("en-GB"),
+    created_date: llmData.created_date,
+    // May need later
+    // created_date: new Date(llmData.created_date).toLocaleDateString("en-GB"),
     url: llmData.url,
     datasheet: llmData.datasheet,
     modality: llmData.modality,
@@ -136,9 +135,7 @@ function LLMEdit({ llmData }: { llmData: LLMDetailsCardProps }) {
                 name={field as keyof typeof defaultValues}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {capitalizeFieldName(field.name)}
-                    </FormLabel>
+                    <FormLabel>{capitalizeFieldName(field.name)}</FormLabel>
                     <FormControl>
                       {field.toString() === "description" ||
                       field.toString() === "analysis" ||

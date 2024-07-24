@@ -25,37 +25,37 @@ export type LLMBasicData = {
 };
 
 export type LLMDetailsCardProps = {
-	type: string;
-	name: string;
-	organization: string;
-	description: string;
-	created_date: Date;
-	url: string;
-	datasheet: string;
-	modality: string;
-	size: string;
-	sample: string;
-	analysis: string;
-	dependencies: string[] | string;
-	included: string;
-	excluded: string;
-	quality_control: string;
-	access: string;
-	license: string;
-	intended_uses: string;
-	prohibited_uses: string;
-	monitoring: string;
-	feedback: string;
-	model_card: string;
-	training_emissions: string;
-	training_time: string;
-	training_hardware: string;
-	adaptation: string;
-	output_space: string;
-	terms_of_service: string;
-	monthly_active_users: string;
-	user_distribution: string;
-	failures: string;
+  type: string;
+  name: string;
+  organization: string;
+  description: string;
+  created_date: Date;
+  url: string;
+  datasheet: string;
+  modality: string;
+  size: string;
+  sample: string;
+  analysis: string;
+  dependencies: string[] | string;
+  included: string;
+  excluded: string;
+  quality_control: string;
+  access: string;
+  license: string;
+  intended_uses: string;
+  prohibited_uses: string;
+  monitoring: string;
+  feedback: string;
+  model_card: string;
+  training_emissions: string;
+  training_time: string;
+  training_hardware: string;
+  adaptation: string;
+  output_space: string;
+  terms_of_service: string;
+  monthly_active_users: string;
+  user_distribution: string;
+  failures: string;
 };
 
 export type NewsSource = {
@@ -79,4 +79,11 @@ export type NewsHeaders = {
   title: string;
   description: string;
   publishedAt: Date;
+};
+
+export type RatingData = {
+  modelId: string;
+  userId: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  createdAt: Date;
 };

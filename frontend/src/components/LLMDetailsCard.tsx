@@ -14,7 +14,8 @@ import { useState } from "react";
 import LLMEdit from "./LLMEdit";
 import ArticleDetailsCard from "@/components/ArticleDetailsCard";
 import { LLMDetailsCardProps, NewsArticle } from "@/lib/types/types";
-
+import { Rating } from "@smastrom/react-rating";
+import { addRating } from "@/services/ratingService";
 
 interface Props {
   llmData: LLMDetailsCardProps;
@@ -56,19 +57,10 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
     failures,
   } = llmData;
 
-	const [rating, setRating] = useState(3);
+  const [rating, setRating] = useState(3);
 	const [isReadOnly, setIsReadOnly] = useState(false);
 
-	async function handleAsyncSubmission(selectedValue) {
-    try {
-      setIsReadOnly(true);
-      setRating(selectedValue);
-      await new Promise((resolve) => setTimeout(() => resolve("Successfully submitted!"), 2000));
-    } catch (err) {
-      setIsReadOnly(false);
-      setRating(0);
-    }
-	}
+	const { user } = useAuth();
 
   const { isAdmin } = useAuth();
 
@@ -79,6 +71,26 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
   };
+
+  async function handleRatingSubmission(selectedValue: 1 | 2 | 3 | 4 | 5) {
+    try {
+      setIsReadOnly(true);
+      setRating(selectedValue);
+			const ratingData = {
+				//no id found
+        // modelId: llmData.,
+        modelId: "Hello",
+        userId: user?.id,
+        rating: selectedValue,
+        createdAt: new Date(),
+      };
+      await addRating(ratingData);
+      setIsReadOnly(false);
+    } catch (err) {
+      setIsReadOnly(false);
+      setRating(0);
+    }
+  }
 
   return (
     <>
@@ -95,74 +107,164 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
         </div>
       ) : null}
 
-			<Rating
-      style={{ maxWidth: 180 }}
-      readOnly={isReadOnly}
-      value={rating}
-      onChange={handleAsyncSubmission}
-			/>
-
       {isAdmin && editModeOn ? (
         <LLMEdit llmData={llmData} />
       ) : (
         <section className="p-6 bg-gray-50">
           <Card className="max-w-5xl mx-auto shadow-lg border rounded-lg p-6 bg-white">
-            <CardHeader className="flex flex-col items-center text-center">
-              <CardTitle className="text-2xl font-semibold mb-2">{name}</CardTitle>
-              <CardDescription className="text-gray-600">{description}</CardDescription>
+            <CardHeader className="flex flex-col items-center text-center gap-3">
+              <CardTitle className="text-2xl font-semibold">{name}</CardTitle>
+              {isAdmin ? (
+                <Rating
+                  style={{ maxWidth: 180 }}
+                  readOnly={isReadOnly}
+                  value={rating}
+                  onChange={(value) => console.log(value)}
+                />
+              ) : (
+                <Rating
+                  style={{ maxWidth: 180 }}
+                  readOnly={true}
+                  value={rating}
+                />
+              )}
+              <CardDescription className="text-gray-600">
+                {description}
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">General Information</h3>
-                <p><strong>Type:</strong> {type}</p>
-                <p><strong>Organization:</strong> {organization}</p>
-                <p><strong>Created Date:</strong> {formattedDate}</p>
-                <p><strong>URL:</strong> <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-500">{url}</a></p>
-                <p><strong>Datasheet:</strong> {datasheet}</p>
-                <p><strong>Modality:</strong> {modality}</p>
-                <p><strong>Size:</strong> {size}</p>
-                <p><strong>Sample:</strong> {sample}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  General Information
+                </h3>
+                <p>
+                  <strong>Type:</strong> {type}
+                </p>
+                <p>
+                  <strong>Organization:</strong> {organization}
+                </p>
+                <p>
+                  <strong>Created Date:</strong> {formattedDate}
+                </p>
+                <p>
+                  <strong>URL:</strong>{" "}
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                  >
+                    {url}
+                  </a>
+                </p>
+                <p>
+                  <strong>Datasheet:</strong> {datasheet}
+                </p>
+                <p>
+                  <strong>Modality:</strong> {modality}
+                </p>
+                <p>
+                  <strong>Size:</strong> {size}
+                </p>
+                <p>
+                  <strong>Sample:</strong> {sample}
+                </p>
               </section>
 
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">Analysis & Dependencies</h3>
-                <p><strong>Analysis:</strong> {analysis}</p>
-                <p><strong>Dependencies:</strong> {Array.isArray(dependencies) ? dependencies.join(', ') : dependencies}</p>
-                <p><strong>Included:</strong> {included}</p>
-                <p><strong>Excluded:</strong> {excluded}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Analysis & Dependencies
+                </h3>
+                <p>
+                  <strong>Analysis:</strong> {analysis}
+                </p>
+                <p>
+                  <strong>Dependencies:</strong>{" "}
+                  {Array.isArray(dependencies)
+                    ? dependencies.join(", ")
+                    : dependencies}
+                </p>
+                <p>
+                  <strong>Included:</strong> {included}
+                </p>
+                <p>
+                  <strong>Excluded:</strong> {excluded}
+                </p>
               </section>
 
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">Quality & Access</h3>
-                <p><strong>Quality Control:</strong> {quality_control}</p>
-                <p><strong>Access:</strong> {access}</p>
-                <p><strong>License:</strong> {license}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Quality & Access
+                </h3>
+                <p>
+                  <strong>Quality Control:</strong> {quality_control}
+                </p>
+                <p>
+                  <strong>Access:</strong> {access}
+                </p>
+                <p>
+                  <strong>License:</strong> {license}
+                </p>
               </section>
 
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">Usage Details</h3>
-                <p><strong>Intended Uses:</strong> {intended_uses}</p>
-                <p><strong>Prohibited Uses:</strong> {prohibited_uses}</p>
-                <p><strong>Monitoring:</strong> {monitoring}</p>
-                <p><strong>Feedback:</strong> {feedback}</p>
-                <p><strong>Model Card:</strong> {model_card}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Usage Details
+                </h3>
+                <p>
+                  <strong>Intended Uses:</strong> {intended_uses}
+                </p>
+                <p>
+                  <strong>Prohibited Uses:</strong> {prohibited_uses}
+                </p>
+                <p>
+                  <strong>Monitoring:</strong> {monitoring}
+                </p>
+                <p>
+                  <strong>Feedback:</strong> {feedback}
+                </p>
+                <p>
+                  <strong>Model Card:</strong> {model_card}
+                </p>
               </section>
 
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">Training & Adaptation</h3>
-                <p><strong>Training Emissions:</strong> {training_emissions}</p>
-                <p><strong>Training Time:</strong> {training_time}</p>
-                <p><strong>Training Hardware:</strong> {training_hardware}</p>
-                <p><strong>Adaptation:</strong> {adaptation}</p>
-                <p><strong>Output Space:</strong> {output_space}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Training & Adaptation
+                </h3>
+                <p>
+                  <strong>Training Emissions:</strong> {training_emissions}
+                </p>
+                <p>
+                  <strong>Training Time:</strong> {training_time}
+                </p>
+                <p>
+                  <strong>Training Hardware:</strong> {training_hardware}
+                </p>
+                <p>
+                  <strong>Adaptation:</strong> {adaptation}
+                </p>
+                <p>
+                  <strong>Output Space:</strong> {output_space}
+                </p>
               </section>
 
               <section className="bg-gray-100 p-4 rounded-md shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-800">Terms & Usage</h3>
-                <p><strong>Terms of Service:</strong> {terms_of_service}</p>
-                <p><strong>Monthly Active Users:</strong> {monthly_active_users}</p>
-                <p><strong>User Distribution:</strong> {user_distribution}</p>
-                <p><strong>Failures:</strong> {failures}</p>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Terms & Usage
+                </h3>
+                <p>
+                  <strong>Terms of Service:</strong> {terms_of_service}
+                </p>
+                <p>
+                  <strong>Monthly Active Users:</strong> {monthly_active_users}
+                </p>
+                <p>
+                  <strong>User Distribution:</strong> {user_distribution}
+                </p>
+                <p>
+                  <strong>Failures:</strong> {failures}
+                </p>
               </section>
             </CardContent>
           </Card>
