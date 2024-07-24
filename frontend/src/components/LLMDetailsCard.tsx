@@ -1,5 +1,4 @@
-"use client";
-
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,19 +9,20 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
 import LLMEdit from "./LLMEdit";
 import ArticleDetailsCard from "@/components/ArticleDetailsCard";
 import { LLMDetailsCardProps, NewsArticle } from "@/lib/types/types";
 import { Rating } from "@smastrom/react-rating";
 import { addRating } from "@/services/ratingService";
+import { deleteArticleById, getRelatedNewsByModelName } from "@/services/articleService";
 
 interface Props {
   llmData: LLMDetailsCardProps;
   relatedArticles: NewsArticle[];
+  setRelatedArticles: React.Dispatch<React.SetStateAction<NewsArticle[]>>;
 }
 
-const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
+const LLMDetailsCard = ({ llmData, relatedArticles, setRelatedArticles }: Props) => {
   const {
     name,
     description,
@@ -58,15 +58,11 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
   } = llmData;
 
   const [rating, setRating] = useState(3);
-	const [isReadOnly, setIsReadOnly] = useState(false);
-
-	const { user } = useAuth();
-
-  const { isAdmin } = useAuth();
+  const [isReadOnly, setIsReadOnly] = useState(false);
+  const { user, isAdmin } = useAuth();
+  const [editModeOn, setEditModeOn] = useState<boolean>(false);
 
   const formattedDate = new Date(created_date).toLocaleDateString("en-GB");
-
-  const [editModeOn, setEditModeOn] = useState<boolean>(false);
 
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
@@ -76,10 +72,8 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
     try {
       setIsReadOnly(true);
       setRating(selectedValue);
-			const ratingData = {
-				//no id found
-        // modelId: llmData.,
-        modelId: "Hello",
+      const ratingData = {
+        modelId: "Hello", // Replace with actual model ID
         userId: user?.id,
         rating: selectedValue,
         createdAt: new Date(),
@@ -92,9 +86,24 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
     }
   }
 
+  const handleDeleteArticle = async (id: string) => {
+    if (!id) {
+      console.error('No ID provided for deletion.');
+      return;
+    }
+    
+    try {
+      await deleteArticleById(id);
+      const updatedArticles = await getRelatedNewsByModelName(llmData.name);
+      setRelatedArticles(updatedArticles);
+    } catch (err) {
+      console.error("Error deleting article:", err);
+    }
+  };
+
   return (
     <>
-      {isAdmin ? (
+      {isAdmin && (
         <div
           style={{ maxWidth: "75%" }}
           className="mx-auto flex items-center space-x-2 mb-5"
@@ -105,7 +114,7 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
           />
           <Label htmlFor="airplane-mode">Edit</Label>
         </div>
-      ) : null}
+      )}
 
       {isAdmin && editModeOn ? (
         <LLMEdit llmData={llmData} />
@@ -266,21 +275,31 @@ const LLMDetailsCard = ({ llmData, relatedArticles }: Props) => {
                   <strong>Failures:</strong> {failures}
                 </p>
               </section>
+
+              <aside className="max-w-5xl mx-auto mt-8 text-center">
+                <h2 className="text-xl font-semibold mb-4">Related News</h2>
+                {relatedArticles.length > 0 ? (
+                  <div className="space-y-4">
+                    {relatedArticles.map((article) => (
+                      <div key={article._id} className="relative">
+                        <ArticleDetailsCard article={article} />
+                        {isAdmin && (
+                          <button
+                            onClick={() => handleDeleteArticle(article._id)}
+                            className="absolute top-2 right-2 px-4 py-2 bg-red-600 text-white rounded"
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No related articles found.</p>
+                )}
+              </aside>
             </CardContent>
           </Card>
-
-          <aside className="max-w-5xl mx-auto mt-8 text-center">
-            <h2 className="text-xl font-semibold mb-4">Related News</h2>
-            {relatedArticles.length > 0 ? (
-              <div className="space-y-4">
-                {relatedArticles.map((article, index) => (
-                  <ArticleDetailsCard key={index} article={article} />
-                ))}
-              </div>
-            ) : (
-              <p>No related articles found.</p>
-            )}
-          </aside>
         </section>
       )}
     </>

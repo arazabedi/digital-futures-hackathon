@@ -64,6 +64,7 @@ export type NewsSource = {
 };
 
 export type NewsArticle = {
+  _id: string;
   source: NewsSource;
   author: string | null;
   title: string;

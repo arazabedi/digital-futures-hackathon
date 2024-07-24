@@ -3,6 +3,7 @@ import { NewsArticle } from "@/lib/types/types";
 
 export default function ArticleDetailsCard({ article }: { article: NewsArticle }) {
   const {
+    _id,
     source,
     author,
     title,

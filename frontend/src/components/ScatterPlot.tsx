@@ -65,10 +65,10 @@ const QuadrantLayer = ({
       <text x={middleX - 290} y={middleY - 255} style={{ fontSize: 15 }}>
         Emerging Prospects
       </text>
-      <text x={middleX - 290} y={middleY + 250} style={{ fontSize: 15 }}>
+      <text x={middleX - 290} y={middleY + 260} style={{ fontSize: 15 }}>
         Foundational Merit
       </text>
-      <text x={middleX + 140} y={middleY + 250} style={{ fontSize: 15 }}>
+      <text x={middleX + 140} y={middleY + 260} style={{ fontSize: 15 }}>
         Operationally Effective
       </text>
     </g>
@@ -78,8 +78,8 @@ const QuadrantLayer = ({
 const ScatterPlot = ({ data }: { data: DataSet }) => {
   const router = useRouter();
 
-  const xDomain = [50, 95];
-  const yDomain = [40, 85];
+  const xDomain = [40, 85];
+  const yDomain = [55, 95];
 
   const handleClick = async (e) => {
     const name = e.serieId;
@@ -90,7 +90,11 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
   const [cursorPointer, setCursorPointer] = useState<boolean>(false);
 
 	return (
-		<main className={clsx("h-3/6", "w-3/6", "bg-white", cursorPointer && "cursor-pointer")}>
+    <main className={clsx("bg-white", cursorPointer && "cursor-pointer")}>
+      <div
+        style={{ width: "1000px", height: "600px", maxWidth: "100%" }}
+        className="mx-auto flex items-center space-x-2 mb-5"
+      >
       <ResponsiveScatterPlot
         data={data}
         onClick={(e) => handleClick(e)}
@@ -107,16 +111,17 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
               textAlign: "center",
             }}
           >
-            <strong>{node.serieId}</strong>
-            <br />
-            Business readiness: {node.data.x}
-            <br />
-            Perceived business value: {node.data.y}
-          </div>
-        )}
-        xScale={{ type: "linear", min: 50, max: 95 }}
+             <strong>{node.serieId}</strong>
+             <br />
+             Business readiness: {node.data.x}
+             <br />
+             Perceived business value: {node.data.y}
+           </div>
+         )}
+        
+        xScale={{ type: "linear", min: 40, max: 85 }}
         xFormat=" >-.2f"
-        yScale={{ type: "linear", min: 40, max: 85 }}
+        yScale={{ type: "linear", min: 55, max: 95 }}
         yFormat=">-.2f"
         blendMode="multiply"
         axisTop={null}
@@ -130,6 +135,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           legendPosition: "middle",
           legendOffset: 46,
           truncateTickAt: 0,
+          tickValues: [],
         }}
         axisLeft={{
           orient: "left",
@@ -140,6 +146,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
           legendPosition: "middle",
           legendOffset: -60,
           truncateTickAt: 0,
+          tickValues: [],
         }}
         nodeSize={40}
         theme={{
@@ -195,9 +202,12 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
               innerHeight={props.innerHeight}
             />
           ),
+          "legends",
         ]}
-      />
+        />
+      </div>
     </main>
+    
   );
 };
 

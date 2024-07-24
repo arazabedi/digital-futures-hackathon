@@ -22,7 +22,6 @@ const LLMDetails = () => {
 
   const fetchData = async (id: string) => {
     try {
-
       const llmDetails = await getLlmById(id);
       setLlmData(llmDetails);
 
@@ -37,7 +36,11 @@ const LLMDetails = () => {
 
   return (
     <section className="p-32">
-      <LLMDetailsCard llmData={llmData} relatedArticles={relatedArticles} />
+      <LLMDetailsCard
+        llmData={llmData}
+        relatedArticles={relatedArticles}
+        setRelatedArticles={setRelatedArticles} 
+      />
     </section>
   );
 };

@@ -66,15 +66,34 @@ export const updateNewsById = async (id: string, newsArticle: NewsArticle) => {
   }
 };
 
-export const deleteNewsById = async (id: string) => {
+// export const deleteNewsById = async (id: string) => {
+//   try {
+//     const accessToken = Cookies.get("accessToken");
+//     await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/news/${id}`, {
+//       headers: {
+//         "x-access-token": accessToken,
+//       },
+//     });
+//   } catch (error: any) {
+//     throw new Error(error.message || 'Error deleting news');
+//   }
+// };
+
+export const deleteArticleById  = async (id: string): Promise<void> => {
   try {
+    console.log("deleteArticleById");
     const accessToken = Cookies.get("accessToken");
+    if (!accessToken) {
+      throw new Error("No access token found");
+    }
     await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/news/${id}`, {
       headers: {
         "x-access-token": accessToken,
       },
     });
   } catch (error: any) {
-    throw new Error(error.message || 'Error deleting news');
+    console.error("Error deleting news:", error);
+    throw new Error(error.response?.data?.message || 'Error deleting news');
   }
 };
+
