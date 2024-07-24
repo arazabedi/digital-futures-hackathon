@@ -11,7 +11,6 @@ const LLMDetails = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-	console.log(id);
   useEffect(() => {
     if (id) {
       getData(id);
@@ -23,9 +22,7 @@ const LLMDetails = () => {
     setData(formattedData);
   };
 
-  // console.log(data);
-
-  if (data) {
+	if (data) {
     return (
       <section className="p-32">
         <LLMDetailsCard llmData={data} />

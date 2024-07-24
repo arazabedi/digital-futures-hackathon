@@ -243,8 +243,15 @@ export function LLMCatalog() {
                       {editModeOn ? (
                         <TableCell className="text-right">
                           <div className="flex flex-col flex-grow gap-3">
-                            <Button variant="outline">
-                              <Pencil />
+                            <Button
+                              onClick={(e) => e.preventDefault()}
+                              variant="outline"
+                            >
+                              <Link
+                                href={`/catalog/${item.llm}?id=${item._id}/edit`}
+                              >
+                                <Pencil />
+                              </Link>
                             </Button>
                             <Button
                               onClick={() => handleDelete(item)}
@@ -276,8 +283,15 @@ export function LLMCatalog() {
                       {editModeOn ? (
                         <TableCell className="text-right">
                           <div className="flex flex-col flex-grow gap-3">
-                            <Button variant="outline">
-                              <Pencil />
+                            <Button
+                              onClick={(e) => e.preventDefault()}
+                              variant="outline"
+                            >
+                              <Link
+                                href={`/catalog/${item.llm}?id=${item._id}/edit`}
+                              >
+                                <Pencil />
+                              </Link>
                             </Button>
                             <Button
                               onClick={() => handleDelete(item)}
