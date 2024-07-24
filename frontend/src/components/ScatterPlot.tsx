@@ -109,7 +109,7 @@ const ScatterPlot = ({ data }: { data: DataSet }) => {
   return (
     <main className={clsx("bg-white", cursorPointer && "cursor-pointer")}>
       <div
-        style={{ width: "1000px", height: "600px", maxWidth: "100%" }}
+        style={{ width: "1000px", height: "600px", maxWidth: "100%", marginBottom: "100px" }}
         className="mx-auto flex items-center space-x-2 mb-5"
       >
         <ResponsiveScatterPlot
