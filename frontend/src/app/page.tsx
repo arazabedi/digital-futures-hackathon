@@ -10,10 +10,11 @@ import { ChevronRight } from "lucide-react";
 // import RetroGrid from "components/ui/Grid";
 
 import HeroBento from "@/components/HeroBento";
+import NumberTicker from "@/components/ui/number-ticker";
 
 function Home() {
   return (
-		<div className="relative">
+    <div className="relative">
       <div className="absolute top-0 z-[0] h-screen w-screen bg-purple-950/10 bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
       <section className="relative max-w-full mx-auto  z-1">
         {/* <RetroGrid /> */}
@@ -24,8 +25,9 @@ function Home() {
               <ChevronRight className="inline w-4 h-4 ml-2 group-hover:translate-x-1 duration-300" />
             </h1>
 
-            <h2 className="text-4xl tracking-tighter font-geist text-black  bg-clip-text bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] text-transparent   mx-auto md:text-6xl">
-              Unlock the power of Large Language Models with{" "}
+            <h2 className="text-4xl tracking-tighter font-geist text-black  bg-clip-text bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] text-transparent mx-auto md:text-6xl">
+              Unlock the power of <NumberTicker value={363} />
+              Large Language Models with{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">
                 Lighthouse
               </span>

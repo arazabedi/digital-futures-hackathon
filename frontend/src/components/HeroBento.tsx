@@ -159,8 +159,8 @@ const features = [
   {
     Icon: InputIcon,
     name: "Full text search",
-    description: "Search through all your files in one place.",
-    href: "/docs",
+    description: "Search for a large language model with any criteria.",
+    href: "/catalog",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
     background: (

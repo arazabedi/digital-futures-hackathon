@@ -71,7 +71,7 @@ function Navbar() {
             >
               Matrix
             </Link>
-            <Link
+            {/* <Link
               href="#"
               className="font-medium flex items-center text-sm transition-colors hover:underline"
               prefetch={false}
@@ -84,7 +84,7 @@ function Navbar() {
               prefetch={false}
             >
               Contact
-            </Link>
+            </Link> */}
           </nav>
           <div className="flex items-center gap-4">
             <DropdownMenu>
