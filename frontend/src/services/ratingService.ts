@@ -6,7 +6,7 @@ export const addRating = async (data: RatingData) => {
 	try {
 		const accessToken = Cookies.get("accessToken");
 		await axios.post(
-			`${process.env.NEXT_PUBLIC_API_URL}/llm-models`,
+			`${process.env.NEXT_PUBLIC_API_URL}/ratings`,
 			{
 				modelId: data.modelId,
 				userId: data.userId,

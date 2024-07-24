@@ -14,7 +14,12 @@ import ArticleDetailsCard from "@/components/ArticleDetailsCard";
 import { LLMDetailsCardProps, NewsArticle } from "@/lib/types/types";
 import { Rating } from "@smastrom/react-rating";
 import { addRating } from "@/services/ratingService";
-import { deleteArticleById, getRelatedNewsByModelName } from "@/services/articleService";
+import {
+  deleteArticleById,
+  getRelatedNewsByModelName,
+} from "@/services/articleService";
+import { useSearchParams } from "next/navigation";
+import { useToast } from "./ui/use-toast";
 
 interface Props {
   llmData: LLMDetailsCardProps;
@@ -22,7 +27,11 @@ interface Props {
   setRelatedArticles: React.Dispatch<React.SetStateAction<NewsArticle[]>>;
 }
 
-const LLMDetailsCard = ({ llmData, relatedArticles, setRelatedArticles }: Props) => {
+const LLMDetailsCard = ({
+  llmData,
+  relatedArticles,
+  setRelatedArticles,
+}: Props) => {
   const {
     name,
     description,
@@ -62,36 +71,48 @@ const LLMDetailsCard = ({ llmData, relatedArticles, setRelatedArticles }: Props)
   const { user, isAdmin } = useAuth();
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
 
+  const searchParams = useSearchParams();
+  const modelId = searchParams.get("id") as string;
+
   const formattedDate = new Date(created_date).toLocaleDateString("en-GB");
 
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
   };
 
+  const { toast } = useToast();
+
   async function handleRatingSubmission(selectedValue: 1 | 2 | 3 | 4 | 5) {
     try {
       setIsReadOnly(true);
       setRating(selectedValue);
       const ratingData = {
-        modelId: "Hello", // Replace with actual model ID
-        userId: user?.id,
+        modelId: modelId,
+        userId: user?.id || "",
         rating: selectedValue,
         createdAt: new Date(),
       };
       await addRating(ratingData);
       setIsReadOnly(false);
+      toast({
+        title: "Successfully rated",
+      });
     } catch (err) {
       setIsReadOnly(false);
       setRating(0);
+      toast({
+        variant: "destructive",
+        title: "Rating unsuccesful",
+      });
     }
   }
 
   const handleDeleteArticle = async (id: string) => {
     if (!id) {
-      console.error('No ID provided for deletion.');
+      console.error("No ID provided for deletion.");
       return;
     }
-    
+
     try {
       await deleteArticleById(id);
       const updatedArticles = await getRelatedNewsByModelName(llmData.name);
@@ -128,7 +149,7 @@ const LLMDetailsCard = ({ llmData, relatedArticles, setRelatedArticles }: Props)
                   style={{ maxWidth: 180 }}
                   readOnly={isReadOnly}
                   value={rating}
-                  onChange={(value) => console.log(value)}
+                  onChange={(value) => handleRatingSubmission(value)}
                 />
               ) : (
                 <Rating
