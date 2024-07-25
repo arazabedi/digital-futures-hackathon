@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarIcon, FileTextIcon, InputIcon } from "@radix-ui/react-icons";
-import { FileBox, ScatterChart } from "lucide-react";
+import { FileBox, ScatterChart, Star } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -17,6 +17,7 @@ import Marquee from "@/components/ui/marquee";
 import { LLMCatalog } from "./LLMCatalog";
 import ScatterPlot from "./ScatterPlot";
 import { matrixData } from "../../data/matrixData";
+import { Rating } from "@smastrom/react-rating";
 
 const files = [
   {
@@ -122,38 +123,26 @@ function Notification({ name, description, icon, color, time }: Item) {
 
 const features = [
   {
-    Icon: FileTextIcon,
-    name: "Save your files",
-    description: "We automatically save your files as you type.",
-    href: "/docs",
+    Icon: Star,
+    name: "Rate the LLMs",
+    description: "As admin, you have the power.",
+    href: "/catalog",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <Marquee
-        pauseOnHover
-        className="absolute top-10 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] "
-      >
-        {files.map((f, idx) => (
-          <figure
-            key={idx}
-            className={ny(
-              "relative w-32 cursor-pointer overflow-hidden rounded-xl border p-4",
-              "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-              "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
-              "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
-            )}
-          >
-            <div className="flex flex-row items-center gap-2">
-              <div className="flex flex-col">
-                <figcaption className="text-sm font-medium dark:text-white ">
-                  {f.name}
-                </figcaption>
-              </div>
-            </div>
-            <blockquote className="mt-2 text-xs">{f.body}</blockquote>
-          </figure>
-        ))}
-      </Marquee>
+      <div className="hover:scale-[1.3] transition-all duration-300 ease-out absolute top-24 left-24 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)]">
+        <Rating
+          className={ny(
+            "relative w-56 cursor-pointer overflow-hidden rounded-xl border p-4",
+            "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+            "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+            "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
+          )}
+          style={{ maxWidth: 180 }}
+          readOnly={false}
+          value={4}
+        />
+      </div>
     ),
   },
   {

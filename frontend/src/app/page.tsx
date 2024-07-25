@@ -1,8 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
 import Link from "next/link";
 
 import React, { useState, useEffect } from "react";
@@ -21,7 +19,7 @@ function Home() {
         <div className="max-w-screen-xl z-10 mx-auto px-4 py-28 gap-12 text-gray-600 md:px-8">
           <div className="space-y-5 max-w-3xl leading-0  lg:leading-5 mx-auto text-center">
             <h1 className="text-sm text-gray-400 group font-geist mx-auto px-5 py-2 bg-gradient-to-tr from-zinc-300/5 via-gray-400/5 to-transparent  border-[2px] border-white/5 rounded-3xl w-fit">
-              Build products for everyone
+              <Link href="/catalog">Delve into the models</Link>
               <ChevronRight className="inline w-4 h-4 ml-2 group-hover:translate-x-1 duration-300" />
             </h1>
 
