@@ -20,6 +20,7 @@ import {
 } from "@/services/articleService";
 import { useSearchParams } from "next/navigation";
 import { useToast } from "./ui/use-toast";
+import { Button } from "./ui/button";
 
 interface Props {
   llmData: LLMDetailsCardProps;
@@ -124,7 +125,9 @@ const LLMDetailsCard = ({
     }
   }
 
-  const handleDeleteArticle = async (id: string) => {
+  const handleDeleteArticle = async (e: any, id: string) => {
+		e.preventDefault();
+		
     if (!id) {
       console.error("No ID provided for deletion.");
       return;
@@ -335,12 +338,13 @@ const LLMDetailsCard = ({
                       <div key={article._id} className="relative">
                         <ArticleDetailsCard article={article} />
                         {isAdmin && (
-                          <button
-                            onClick={() => handleDeleteArticle(article._id)}
-                            className="absolute top-2 right-2 px-4 py-2 bg-red-600 text-white rounded"
+                          <Button
+                            variant={"destructive"}
+                            onClick={(e) => handleDeleteArticle(e, article._id)}
+                            className="absolute top-2 right-2 px-4 py-2 text-white rounded"
                           >
                             Delete
-                          </button>
+                          </Button>
                         )}
                       </div>
                     ))}

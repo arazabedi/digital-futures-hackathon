@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import CatalogSkeleton from "./skeletons/CatalogSkeleton";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export function LLMCatalog() {
   const [editModeOn, setEditModeOn] = useState<boolean>(false);
@@ -45,23 +47,26 @@ export function LLMCatalog() {
   }, []);
 
   const getData = async () => {
-    setLoading(true);
     const formattedData = await getCatalogData();
     setData(formattedData);
-    setLoading(false);
   };
 
   const handleCheckedChange = (checked: boolean) => {
     setEditModeOn(checked);
   };
 
-  const handleDelete = async (llm: CatalogHeaders) => {
+  const router = useRouter();
+
+  const handleDelete = async (e: any, llm: CatalogHeaders) => {
+    e.preventDefault();
     try {
+      setLoading(true);
       await deleteLLM(llm._id);
       console.log(llm);
       toast({
         title: "Successfully deleted " + llm.llm + "!",
       });
+      router.refresh();
     } catch (error) {
       toast({
         title: "Couldn't deleted: " + llm.llm + ".\nError: " + error,
@@ -95,14 +100,14 @@ export function LLMCatalog() {
     try {
       addLLMBasic(values);
       toast({
-        title: "Successfully added " + values.llm + ".",
+        title: "Successfully added " + values.name + ".",
       });
+      router.refresh();
     } catch (error) {
       toast({
-        title: "Couldn't add " + values.llm + ". Error: " + error,
+        title: "Couldn't add " + values.name + ". Error: " + error,
       });
     }
-    // console.log(values);
   }
 
   const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -284,7 +289,7 @@ export function LLMCatalog() {
                               </Link>
                             </Button>
                             <Button
-                              onClick={() => handleDelete(item)}
+                              onClick={(e) => handleDelete(e, item)}
                               variant="destructive"
                             >
                               Delete
@@ -324,7 +329,7 @@ export function LLMCatalog() {
                               </Link>
                             </Button>
                             <Button
-                              onClick={() => handleDelete(item)}
+                              onClick={(e) => handleDelete(e, item)}
                               variant="destructive"
                             >
                               Delete
