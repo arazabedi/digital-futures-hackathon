@@ -8,3 +8,7 @@ export function ny(...inputs: ClassValue[]) {
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
+
+export function cy(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs))
+}
