@@ -27,7 +27,7 @@ const BusinessValueInfo = () => {
         Business Readiness (Horizontal Axis)
       </h2>
       <p className="mb-4">
-        Evaluates the LLM`&apos;`s suitability for real-world business environments,
+        Evaluates the LLM&apos;s suitability for real-world business environments,
         focusing on credibility, safety, accuracy, and performance.
       </p>
       <div className="mb-4">
@@ -51,8 +51,8 @@ const BusinessValueInfo = () => {
       <div className="mb-4">
         <h3 className="text-xl font-semibold">Accuracy (30% Weighting)</h3>
         <p>
-          Measures the precision and correctness of the LLM`&apos;`s responses. This is
-          a critical indicator of the model`&apos;`s reliability and performance.
+          Measures the precision and correctness of the LLM&apos;s responses. This is
+          a critical indicator of the model&apos;s reliability and performance.
         </p>
       </div>
       <div className="mb-4">
@@ -79,7 +79,7 @@ const BusinessValueInfo = () => {
         Perceived Business Value (Vertical Axis)
       </h2>
       <p className="mb-4">
-        Assesses the LLM`&apos;`s utility and impact in business contexts, focusing on
+        Assesses the LLM&apos;s utility and impact in business contexts, focusing on
         capabilities, real-world effectiveness, popularity, and innovation.
       </p>
       <div className="mb-4">
@@ -109,7 +109,7 @@ const BusinessValueInfo = () => {
           Innovation and Impact (25% Weighting)
         </h3>
         <p>
-          Evaluates the LLM`&apos;`s contributions to new solutions and its influence
+          Evaluates the LLM&apos;s contributions to new solutions and its influence
           on the industry.
         </p>
       </div>
@@ -196,8 +196,8 @@ const BusinessValueInfo = () => {
                 Business Readiness (Horizontal Axis)
               </h2>
               <p>
-                This dimension evaluates the LLM`&apos;`s suitability for real-world
-                business environments. It focuses on the model`&apos;`s credibility,
+                This dimension evaluates the LLM&apos;s suitability for real-world
+                business environments. It focuses on the model&apos;s credibility,
                 safety, accuracy, and technical performance to determine how
                 well it can be integrated and relied upon in professional
                 settings.
@@ -237,7 +237,7 @@ const BusinessValueInfo = () => {
                   Assesses how effectively the LLM prevents and addresses cases
                   of misuse, including harmful, biased, or misleading outputs.
                   This involves evaluating the frequency of misuse cases
-                  reported and the model`&apos;`s effectiveness in implementing
+                  reported and the model&apos;s effectiveness in implementing
                   safeguards and corrective measures. The focus is on how well
                   the model manages and mitigates instances of misuse to ensure
                   ethical and safe use.
@@ -268,7 +268,7 @@ const BusinessValueInfo = () => {
               <div className="mb-4">
                 <h3 className="text-lg font-semibold">Accuracy</h3>
                 <p>
-                  Measures the precision and correctness of the LLM`&apos;`s responses.
+                  Measures the precision and correctness of the LLM&apos;s responses.
                   This is assessed through standardized benchmarks and
                   real-world tests to determine how consistently the model
                   provides accurate and relevant information.
@@ -295,9 +295,9 @@ const BusinessValueInfo = () => {
               <div className="mb-4">
                 <h3 className="text-lg font-semibold">Benchmark Performance</h3>
                 <p>
-                  Evaluates the LLM`&apos;`s performance on industry-standard
+                  Evaluates the LLM&apos;s performance on industry-standard
                   benchmarks such as GLUE, SuperGLUE, and SQuAD. This provides a
-                  quantitative measure of the model`&apos;`s technical proficiency and
+                  quantitative measure of the model&apos;s technical proficiency and
                   performance in various language tasks.
                 </p>
                 <p>
@@ -324,7 +324,7 @@ const BusinessValueInfo = () => {
               </p>
               <p>
                 Accuracy (30%) and Benchmark Performance (30%) are weighted the
-                highest because they are critical indicators of the model`&apos;`s
+                highest because they are critical indicators of the model&apos;s
                 technical capabilities and reliability. Accurate and
                 high-performing models are essential for effective business
                 applications.
@@ -353,8 +353,8 @@ const BusinessValueInfo = () => {
                   Perceived Business Value (Vertical Axis)
                 </h2>
                 <p>
-                  This dimension assesses the LLM`&apos;`s utility and impact in
-                  business contexts. It focuses on the model`&apos;`s capabilities,
+                  This dimension assesses the LLM&apos;s utility and impact in
+                  business contexts. It focuses on the model&apos;s capabilities,
                   real-world effectiveness, popularity, and its contribution to
                   industry innovation.
                 </p>
@@ -364,7 +364,7 @@ const BusinessValueInfo = () => {
                     Evaluates the range of functions and features the LLM can
                     perform, including natural language understanding,
                     generation, summarization, and translation. It assesses the
-                    model`&apos;`s versatility and ability to handle various tasks.
+                    model&apos;s versatility and ability to handle various tasks.
                   </p>
                   <p>
                     <b>Score Ranges:</b>
@@ -393,7 +393,7 @@ const BusinessValueInfo = () => {
                     Reviews documented cases of the LLM being effectively
                     applied in business scenarios. This includes case studies,
                     user testimonials, and implementation reports that
-                    demonstrate the model`&apos;`s success in achieving business goals.
+                    demonstrate the model&apos;s success in achieving business goals.
                   </p>
                   <p>
                     <b>Score Ranges:</b>
@@ -446,7 +446,7 @@ const BusinessValueInfo = () => {
                     Innovation and Impact
                   </h3>
                   <p>
-                    Evaluates the model`&apos;`s contribution to new solutions and its
+                    Evaluates the model&apos;s contribution to new solutions and its
                     influence in the industry. This includes its role in
                     advancing methodologies, introducing significant
                     improvements, and overall industry impact.
@@ -478,7 +478,7 @@ const BusinessValueInfo = () => {
                 </p>
                 <p>
                   Capabilities (30%) is weighted the highest as it directly
-                  reflects the model`&apos;`s functionality and versatility, which are
+                  reflects the model&apos;s functionality and versatility, which are
                   crucial for addressing various business needs.
                 </p>
                 <p>
@@ -488,13 +488,13 @@ const BusinessValueInfo = () => {
                   feature versatility.
                 </p>
                 <p>
-                  Innovation and Impact (25%) reflects the model`&apos;`s ability to
+                  Innovation and Impact (25%) reflects the model&apos;s ability to
                   drive industry change and contribute to new solutions, which
                   is vital for long-term business value and influence.
                 </p>
                 <p>
                   Popularity (20%) indicates market acceptance and can reflect
-                  the model`&apos;`s reliability and perceived value, but it is
+                  the model&apos;s reliability and perceived value, but it is
                   weighted less compared to practical applications and
                   capabilities.
                 </p>
